@@ -282,14 +282,15 @@ export const Image13 = styled.img`
   height: 46px;
   width: 46px;
   /* background: red; */
-  ${mobile({height: "25px", width: "25px"})}
+  /* ${mobile({height: "25px", width: "25px"})} */
 `;
 export const Image14 = styled.img`
-  height: 22px;
-  width: 22px;
-  margin-left: calc(-46px + 34px);
-  margin-top: 4px;
-  ${mobile({height: "17px", width: "17px", marginLeft: "-10px", marginTop: "-5px"})}
+  /* height: 23px;
+  width: 23px; */
+  /* padding: 1px; */
+  margin-left: calc(-46px + 36px);
+  margin-top: 1px;
+  /* ${mobile({height: "17px", width: "17px", marginLeft: "-10px", marginTop: "-5px"})} */
 `;
 export const Text4 = styled.div`
   font-style: normal;

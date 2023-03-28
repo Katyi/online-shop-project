@@ -11,7 +11,7 @@ export const products = {
       brand: "AOS",
       description: "AOS средство для мытья посуды Crystal",
       price: 48.76,
-      caretype: ["Бытовая химия"]
+      caretype: ["Бытовая химия"],
     },
     {
       id: 2,
@@ -37,7 +37,7 @@ export const products = {
       brand: "AOS",
       description: "BIMAX Порошок стиральный Автомат 100 пятен COMPACT",
       price: 48.76,
-      caretype: ["Бытовая химия"]
+      caretype: ["Бытовая химия"],
     },
     {
       id: 4,
@@ -50,7 +50,7 @@ export const products = {
       brand: "Nivea",
       description: "Крем универсальный 'Увлажнение и смягчение'",
       price: 20,
-      caretype: ["Уход за руками", "Уход за телом", "Уход за ногами"]
+      caretype: ["Уход за руками", "Уход за телом", "Уход за ногами"],
     },
     {
       id: 5,

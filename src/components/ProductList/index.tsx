@@ -26,11 +26,9 @@ export interface Product {
   brand:string;
   caretype: string[];
 };
-
 interface Data {
   products:Product[]
 };
-
 interface ProducerArr {
   [key:string]:number
 }
@@ -60,6 +58,7 @@ const ProductList = () => {
   let selectedProducts:Product[] = [];
   const [selectedProductsList, setSelectedProductsList] = useState(selectedProducts);
   const [selectedProductQuantity, setSelectedProductQuantity] = useState(0);
+  let totalPrice = 0;
 
   localStorage.setItem("products", JSON.stringify(products));
   let int  = localStorage.getItem("products") as string;
@@ -152,6 +151,7 @@ const ProductList = () => {
     setSelectedProductQuantity((prev)=>prev+1);
   }
   console.log(selectedProductsList);
+  totalPrice = Number(selectedProductsList.reduce((acc, item)=> acc + item.price, 0).toFixed(2));
   localStorage.setItem("selectedProductsList", JSON.stringify(selectedProductsList));
   
 
@@ -161,7 +161,7 @@ const ProductList = () => {
 
   return (
     <Wrapper>
-      <Navbar selectedProductQuantity={selectedProductQuantity}/>
+      <Navbar selectedProductQuantity={selectedProductQuantity} totalPrice={totalPrice}/>
       <Container>
         <Part1>
           <Text1>Главная</Text1>

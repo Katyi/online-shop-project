@@ -19,11 +19,10 @@ import {Text,Text0, Text1,Text2,Text3, Text4,Text5,Text6,Text7,Text8 }from "./na
 import {Image1,Image2,Image3,Image4,Image5,Image6,Image7,Image8,Image9,Image10,Image11,Image12,Image13,Image14,
   Image15,Image16,Image17,Image18,Image19,Image20 }from "./navbar.style.js";
 import { Link } from 'react-router-dom';
-import { Product as IProduct } from '../../pages/Admin';
-import ShoppingCart from '../ShoppingCart';
 
 interface Props { 
   selectedProductQuantity: number;
+  totalPrice: number;
 }
 
 const Navbar = (props: Props) => {
@@ -93,7 +92,7 @@ const Navbar = (props: Props) => {
               </Cart1>
               <Cart2>
                 <Text5>Корзина</Text5>
-                <Text6>12 478 ₸ </Text6>
+                <Text6>{props.totalPrice}</Text6>
               </Cart2>
             </Cart>
           </HeaderMenu>
