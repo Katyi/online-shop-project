@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 // import "./css/style.css";
 import './App.css'
 import ProductList  from './components/ProductList';
-import Admin from './pages/Admin';
+import Admin from './pages';
 import Footer from './components/Footer';
 import ProductCard from './components/ProductCard';
 import ShoppingCart from './components/ShoppingCart';
