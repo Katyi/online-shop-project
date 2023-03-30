@@ -1,4 +1,4 @@
-import { Product as IProduct } from '../../pages/Admin';
+import { Product as IProduct } from '../ProductList';
 import {Container, Part0, Image1, Image2, Image3, Part1_1, Text1, Part1, Size, Part1_2, Part2, Text2, Barcode, PriceLine, Price, Button, Text3, Image4, BottomPart} from "./productItem.style.js";
 import inputimg1 from '../../assets/productItem/vector5.png';
 import inputimg2 from '../../assets/productItem/vector6.png';
@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 interface Props { 
   product: IProduct;
-  handleShoppingCart: (poduct:IProduct)=>void;
+  handleShoppingCart: (product:IProduct)=>void;
 }
 
 const ProductItem = (props: Props) => {
@@ -22,7 +22,8 @@ const ProductItem = (props: Props) => {
       {/* вес и объем товара */}
       <Part1>
         {product.sizeType === 'мл' ? <Image2 src={inputimg1}/> : <Image3 src={inputimg2}/>}
-        <Size>{product.size} {product.sizeType}</Size>
+        {product.amount === 1 ? <Size>{product.size} {product.sizeType}</Size>: <Size>{product.amount}X{product.size} {product.sizeType}</Size>}
+        
       </Part1>
       <BottomPart>
       {/* Название товара */}

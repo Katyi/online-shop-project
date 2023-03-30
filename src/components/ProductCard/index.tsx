@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar from "../Navbar";
+import { IProduct as IProduct} from "../ProductList/index";
 import {Wrapper,Container, Part1, Image1, Part2, ImagePart, InfoPart, Image2, Text1, ProductName, ProductSize, Image3, Image4, 
   Size, PriceButtonPart, Price, ButtonPart, Button1, Image5, Quantity, Button2, Text2, Image6, SomeTextPart, ShareIcon, Image7, 
   Text3, Text4, ProductInfo, Text5, Button3, Button4, Text6, Image8, Image9, SpecificationInfo} from "./productCard.style.js";
@@ -15,58 +16,28 @@ import inputimg9 from '../../assets/productCard/icon13.png';
 import inputimg10 from '../../assets/productCard/vector14.png';
 import { Link } from "react-router-dom";
 
-export interface Product {
-  id: number;
-  name: string;
-  url: string;
-  size: string;
-  sizeType: string;
-  barcode: string;
-  producer: string;
-  description: string;
-  price: number;
-  brand:string;
-  caretype: string[];
-  quantity: number;
-};
-export interface IProduct {
-  id: number;
-  name: string;
-  url: string;
-  size: string;
-  sizeType: string;
-  barcode: string;
-  producer: string;
-  description: string;
-  price: number;
-  brand:string;
-  caretype: string[];
-};
 export interface Data {
-  products:Product[]
+  products:IProduct[]
 };
 
 const ProductCard = () => {
   // Берем данные корзины из json 
   let int  = localStorage.getItem("selectedProductsList") as string;
-  let shoppingData:Product[] = JSON.parse(int);
-  let shoppingData1:Product[] = [];
-  // сортируем корзину по id и присваиваем кол-во выбранного товара для каждого id
-  shoppingData.forEach((obj, index)=>{
-    if (shoppingData1.find(i => i.id === obj.id) === undefined) {
-      if (!obj.quantity) obj.quantity = 1;
-      shoppingData1.push(obj);
-    } else {
-      let newObj = shoppingData1.find(i => i.id === obj.id) as Product;
-      newObj.quantity += 1;
-      newObj.price = newObj.quantity * obj.price;
-    }
-  })
+  let shoppingData:IProduct[] = JSON.parse(int);
+  let selectedProducts:IProduct[] = [];
 
   // Стоимость и колич-во товаров в корзине
-  const[totalPrice, setTotalPrice] = useState(Number(shoppingData1.reduce((summ, item)=> summ + item.price, 0).toFixed(2)));
-  const [totalQuantity, setTotalQuantity] = useState(shoppingData1.reduce((summ, item)=> summ + item.quantity, 0));
-  const [productList, setProductList] = useState(shoppingData); // надо проверить!!!
+  let shoppingDataLength = 0;
+  if (shoppingData !== null) {
+    selectedProducts = shoppingData;
+    shoppingDataLength = shoppingData.reduce((acc, item)=>acc + item.quantity, 0)
+  }
+  const [selectedProductsList, setSelectedProductsList] = useState(selectedProducts);
+  const [selectedProductQuantity, setSelectedProductQuantity] = useState(shoppingDataLength);
+  let totalPrice = 0;
+  totalPrice = Number(selectedProductsList.reduce((acc, item)=> acc + item.quantity * item.price, 0).toFixed(2));
+ 
+  const [productList, setProductList] = useState(shoppingData);
   // индикаторы для скрывающих тэги кнопок
   const [indForShow1, setindForShow1] = useState(0);
   const [indForShow2, setindForShow2] = useState(0);
@@ -77,43 +48,39 @@ const ProductCard = () => {
   const productId = Number(window.location.pathname.split('/')[2]);
   const [productItem, setProductItem] = useState(data.products.filter(item=>item.id === productId)[0]);
   
-  // Определяем кол-во для товара в карточке (есть ли она уже в корзине)
-  let findId = shoppingData1.findIndex(i => i.id === productItem.id);
-  if (findId>=0) {
-    productItem.quantity = shoppingData1[findId].quantity;
-  } else {
-    productItem.quantity = 0;
-  }
-
   // для расчета стоимости и количества в карточке
-  const [quantity, setQuantity] = useState(productItem.quantity);
-  const [price, setPrice] = useState(Number((productItem.price * quantity).toFixed(2)));
-  // let selectedProducts:Product[] = [];
+
+  const [quantity, setQuantity] = useState(0);
   
+  console.log(quantity);
   // уменьшение количества и стоимости в карточке
   const decreaseQuantity = () => {
     if (quantity!==0) {
-      setPrice((prev)=>Number((prev - prev/quantity).toFixed(2)));
       setQuantity((prev)=>prev -1);
     }
   };
 
   // увеличение количества и стоимости в карточке
   const increaseQuantity = () => {
-    if (quantity>0) {
-      setPrice((prev)=>Number((prev + prev/quantity).toFixed(2)));
-    } else {
-      setPrice(productItem.price)
-    }
     setQuantity((prev)=>prev + 1);
   };
 
   // добавление в корзину
-  const handleShoppingCart = () => {
-    setTotalPrice((prev)=> Number((prev + price).toFixed(2)));
-    setTotalQuantity((prev)=> prev + quantity);
+   const  handleShoppingCart =  () => {
+    const newProd = Object.assign({}, productItem) as IProduct;
+    newProd.quantity  = quantity;
+    // newProd.price = quantity * productItem.price;
+    let int  = localStorage.getItem("selectedProductsList") as string;
+    let shoppingData:IProduct[] = JSON.parse(int);
+    let index1 = newProd.id;
+    let i = shoppingData.findIndex((item)=> item.id === index1);
+      if( i>=0){ shoppingData[i].quantity  += quantity } else {shoppingData.push(newProd)};
+    setSelectedProductQuantity((prev)=> prev + quantity);
+    setSelectedProductsList((prev)=>[...prev, newProd]);
+    console.log(shoppingData);
+    localStorage.setItem("selectedProductsList", JSON.stringify(shoppingData));
   };
-
+  
   // изменение индикаторов для скрывающих тэги кнопок
   const closeInfo1 = () => {
     setindForShow1(indForShow1 === 0 ? 1 : 0);
@@ -124,7 +91,7 @@ const ProductCard = () => {
 
   return (
     <Wrapper>
-      <Navbar selectedProductQuantity={totalQuantity} totalPrice={totalPrice}/>
+      <Navbar selectedProductQuantity={selectedProductQuantity} totalPrice={totalPrice}/>
       <Container>
         {/* хлебные крошки */}
         <Part1><Link to="/">Главная</Link><Image1 src={inputimg1}/>
@@ -144,10 +111,10 @@ const ProductCard = () => {
             </ProductName>
             <ProductSize>
               {productItem.sizeType === 'мл' ? <Image3 src={inputimg1}/> : <Image4 src={inputimg2}/>}
-              <Size>{productItem.size} {productItem.sizeType}</Size>
+              {productItem.amount === 1 ? <Size>{productItem.size} {productItem.sizeType}</Size> : <Size>{productItem.amount}X{productItem.size} {productItem.sizeType}</Size>}
             </ProductSize>
             <PriceButtonPart>
-              <Price>{price} ₸</Price>
+              <Price>{productItem.price} ₸</Price>
               <ButtonPart>
                 <Button1 onClick={()=>decreaseQuantity()}><Image5 src={inputimg4}/></Button1>
                 <Quantity>{quantity}</Quantity>

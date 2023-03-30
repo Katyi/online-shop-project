@@ -18,7 +18,8 @@ export interface Product {
   id: number;
   name: string;
   url: string;
-  size: string;
+  amount: number;
+  size: number;
   sizeType: string;
   barcode: string;
   producer: string;
@@ -26,6 +27,21 @@ export interface Product {
   price: number;
   brand:string;
   caretype: string[];
+};
+export interface IProduct {
+  id: number;
+  name: string;
+  url: string;
+  amount: number;
+  size: number;
+  sizeType: string;
+  barcode: string;
+  producer: string;
+  description: string;
+  price: number;
+  brand:string;
+  caretype: string[];
+  quantity: number;
 };
 export interface Data {
   products:Product[]
@@ -55,12 +71,24 @@ const ProductList = () => {
   const [price2, setPrice2] = useState("");
   const [produserName, setProduserName] = useState("");
   let newProducerArr:NewProducerArr[] = [];
-  let currentInput = "";
+  
+  let int1  = localStorage.getItem("selectedProductsList") as string;
+  let shoppingData:IProduct[] = JSON.parse(int1);
   let selectedProducts:Product[] = [];
-  const [selectedProductsList, setSelectedProductsList] = useState(selectedProducts);
-  const [selectedProductQuantity, setSelectedProductQuantity] = useState(0);
+  let shoppingDataLength = 0;
+  // const [totalPrice, setTotalPrice] = useState(0);
   let totalPrice = 0;
-  const [indForShow, setindForShow] = useState(0);
+  if (shoppingData !== null) {
+    selectedProducts = shoppingData;
+    shoppingDataLength = shoppingData.reduce((acc, item)=>acc + item.quantity, 0);
+    totalPrice = shoppingData.reduce((acc, item)=> acc + item.price * item.quantity, 0);
+    console.log(totalPrice);
+  }
+  const [selectedProductsList, setSelectedProductsList] = useState(selectedProducts);
+  const [selectedProductQuantity, setSelectedProductQuantity] = useState(shoppingDataLength);
+  
+  const [indForShow, setIndForShow] = useState(0);
+  const [indForHideButton, setIndForHideButton] = useState(0);
 
   // Кладем список товаров из json в localStorage
   localStorage.setItem("products", JSON.stringify(products));
@@ -81,17 +109,29 @@ const ProductList = () => {
     newProducerArr.push({"name": key, "quantity": value, "checked": false})
   }
   // по нажатию кнопки показать все или скрыть опредедяем кол-во чекбоксов
-  newProducerArr = indForShow === 0 ? newProducerArr.slice(0, 4) : newProducerArr;
-  newProducerArr = produserName !== '' ? newProducerArr.filter((item) => item.name === produserName) : newProducerArr;
+  newProducerArr = produserName !== '' ? newProducerArr.filter((item) => item.name.toLocaleLowerCase().includes(produserName.toLocaleLowerCase())) : newProducerArr;
   
+  //статус для поиска производителей
+  const handleInputOnChange =(value:string) => {
+    setProduserName(value);
+    if (value !== '') {
+      setIndForShow(1);
+      setIndForHideButton(1);
+    } else {
+      setIndForShow(0);
+      setIndForHideButton(0);
+    }
+  };
+
   // статус галочек в чекбоксах
   let newProducerArrLength = newProducerArr.length;
   const [checked, setChecked] = useState(
     new Array(newProducerArrLength).fill(false)
   );
-  for (let i = 0; i < newProducerArr.length; i++) {
-    newProducerArr[i].checked = checked[i]
+  for (let i = 0; i < newProducerArrLength; i++) {
+    newProducerArr[i].checked = checked[i];
   }
+  newProducerArr = indForShow === 0 ? newProducerArr.slice(0, 4) : newProducerArr;
   const handleOnChange = (position:number) => {
     const updatedCheckedState = checked.map((item, index) =>
       index === position ? !item : item
@@ -155,15 +195,17 @@ const ProductList = () => {
 
   // добавление товаров в корзину
   const handleShoppingCart = (product:Product) => {
-    setSelectedProductsList((prev)=>[...prev, product]);
-    setSelectedProductQuantity((prev)=>prev+1);
+    const newProd = Object.assign({},product) as IProduct;
+    newProd.quantity=1;
+    setSelectedProductsList((prev)=>[...prev, newProd]);
+    setSelectedProductQuantity((prev)=>prev + 1);
   };
-  totalPrice = Number(selectedProductsList.reduce((acc, item)=> acc + item.price, 0).toFixed(2));
+  // totalPrice = Number(shoppingData.reduce((acc, item)=> acc + item.quantity * item.price, 0).toFixed(2));
   localStorage.setItem("selectedProductsList", JSON.stringify(selectedProductsList));
   
   // показать всех производителей или скрыть
-  const ShowAllProducers = () => {
-    setindForShow(indForShow === 0 ? 1 : 0);
+  const showAllProducers = () => {
+    setIndForShow(indForShow === 0 ? 1 : 0);
   };
 
   useEffect(() => {
@@ -226,8 +268,8 @@ const ProductList = () => {
             {/* Фильтр по производителям */}
             <Text7>Производитель</Text7>
             <InputWithButton>
-              <Input2 placeholder="Поиск..." type="text" onFocus={e=>{e.currentTarget.value=''}} onChange={e=>{{currentInput=e.currentTarget.value}}}/>
-              <button onClick={e=>{setProduserName(currentInput)}}><Image2 src={inputimg2}/></button>
+              <Input2 placeholder="Поиск..." type="text" onChange={(e)=>handleInputOnChange(e.currentTarget.value)}/>
+              <Image2 src={inputimg2}/>
             </InputWithButton>
             <CheckBox>
               {newProducerArr.map((item,index)=>(
@@ -240,11 +282,11 @@ const ProductList = () => {
                 </CheckBoxLine>
               ))}
             </CheckBox>
-            {indForShow === 0 &&
-              <ProducerButton onClick={()=>ShowAllProducers()}>Показать все <Image4 src={inputimg4}/> </ProducerButton>
+            {indForShow === 0 && indForHideButton === 0 &&
+              <ProducerButton onClick={()=>showAllProducers()}>Показать все <Image4 src={inputimg4}/> </ProducerButton>
             }
-            {indForShow === 1 &&
-              <ProducerButton onClick={()=>ShowAllProducers()}>Скрыть <Image4 src={inputimg5}/> </ProducerButton>
+            {indForShow === 1 && indForHideButton === 0 &&
+              <ProducerButton onClick={()=>showAllProducers()}>Скрыть <Image4 src={inputimg5}/> </ProducerButton>
             }
             <Image3 src={inputimg3}/>
             {/* Фильтры дублирующие верхние фильтры */}

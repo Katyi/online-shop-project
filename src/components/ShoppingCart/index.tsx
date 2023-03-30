@@ -13,42 +13,34 @@ import {CartItemInfoPart1, Size, Image4, Image5, Image6, ButtonPart, Button, Ima
   ButtonOrder, Image9, TotalPrice, Quantity, AfterOrderPart, Text5} from "./shoppingCart.style.js";
 import { Link } from 'react-router-dom';
 import { useState } from "react";
-
-export interface Product {
-  id: number;
-  name: string;
-  url: string;
-  size: string;
-  sizeType: string;
-  barcode: string;
-  producer: string;
-  description: string;
-  price: number;
-  brand:string;
-  caretype: string[];
-  quantity: number;
-};
+import { IProduct as IProduct } from '../ProductList';
 
 const ShoppingCart = () => {
   let int  = localStorage.getItem("selectedProductsList") as string;
-  let shoppingData:Product[] = JSON.parse(int);
-  let shoppingData1:Product[] = [];
+  let shoppingData:IProduct[] = JSON.parse(int);
+  let shoppingData1:IProduct[] = [];
+  // массив объектов корзины уникальным и считаю кол-во каждого товара
   shoppingData.forEach((obj, index)=>{
     if (shoppingData1.find(i => i.id === obj.id) === undefined) {
-      if (!obj.quantity) obj.quantity = 1;
+      // obj.price = obj.quantity * obj.price;
       shoppingData1.push(obj);
+      
     } else {
-      let newObj = shoppingData1.find(i => i.id === obj.id) as Product;
+      let newObj = shoppingData1.find(i => i.id === obj.id) as IProduct;
       newObj.quantity += 1;
-      newObj.price = newObj.quantity * obj.price;
+      // newObj.price = newObj.quantity * obj.price;
     }
   })
-  let totalPrice = Number(shoppingData1.reduce((summ, item)=> summ + item.price, 0).toFixed(2));
+  // считаю общую стоимость корзины
+  let totalPrice = Number(shoppingData1.reduce((summ, item)=> summ + item.quantity * item.price, 0).toFixed(2));
+  // индикатор для появления надписи после заказа
   const [indForShow, setindForShow] = useState(0);
+  // считаю кол-во товаров в корзине
   const [shoppingDataLength, setShoppingDataLength] = useState(shoppingData1.reduce((acc, item)=>acc + item.quantity, 0));
-  console.log(shoppingData1);
+  // массив товаров в корзине
   const [productList, setProductList] = useState(shoppingData1);
   
+  // удаление товаров в корзине
   const deleteShoppingCartList = (index1:number) => {
     shoppingData1 = shoppingData1.filter((item,index)=>{return index !== index1});
     setProductList(shoppingData1);
@@ -56,10 +48,11 @@ const ShoppingCart = () => {
     localStorage.setItem("selectedProductsList", JSON.stringify(shoppingData1));
   };
 
+  // уменьшение кол-ва товаров в корзине
   const decreaseQuantity = (index1:number) => {
-    shoppingData1.forEach((item, index)=> index === index1 
-    ? item.price = Number((item.price - item.price/item.quantity).toFixed(2))
-    : item.price);
+    // shoppingData1.forEach((item, index)=> index === index1 
+    // ? item.price = Number((item.price - item.price/item.quantity).toFixed(2))
+    // : item.price);
     shoppingData1.forEach((item, index)=> index === index1 ? item.quantity-- : item.quantity);
     shoppingData1 = shoppingData1.filter(item=>item.quantity !== 0);
     setProductList(shoppingData1);
@@ -67,10 +60,11 @@ const ShoppingCart = () => {
     localStorage.setItem("selectedProductsList", JSON.stringify(shoppingData1));
   };
 
+  // увеличение кол-ва товаров в корзине
   const increaseQuantity = (index1:number) => {
-    shoppingData1.forEach((item, index)=> index === index1 
-    ? item.price = Number((item.price + item.price/item.quantity).toFixed(2))
-    : item.price);
+    // shoppingData1.forEach((item, index)=> index === index1 
+    // ? item.price = Number((item.price + item.price/item.quantity).toFixed(2))
+    // : item.price);
     shoppingData1.forEach((item, index)=> index === index1 ? item.quantity++ : item.quantity);
     setProductList(shoppingData1);
     setShoppingDataLength(shoppingData1.reduce((acc, item)=>acc + item.quantity, 0));
@@ -82,13 +76,8 @@ const ShoppingCart = () => {
     setProductList([]);
     setShoppingDataLength(0);
     setindForShow(1);
-    // localStorage.removeItem("selectedProductsList");
     localStorage.setItem("selectedProductsList", JSON.stringify(shoppingData1));
   };
-
-  // useEffect(() => {
-  //   getShoppingCartList(shoppingDataLength);
-  // }, [shoppingDataLength]);
 
   return (
     <Wrapper>
@@ -115,6 +104,7 @@ const ShoppingCart = () => {
              <CartItemInfo>
               <CartItemInfoPart1>
                 {item.sizeType === 'мл' ? <Image4 src={inputimg3}/> : <Image5 src={inputimg4}/>}
+                {item.amount === 1 ? <Size>{item.size} {item.sizeType}</Size> : <Size>{item.amount}X{item.size} {item.sizeType}</Size>}
                 <Size>{item.size} {item.sizeType}</Size>
               </CartItemInfoPart1>
               <Text3>{item.name}</Text3>
@@ -127,7 +117,7 @@ const ShoppingCart = () => {
               <Button onClick={e=>increaseQuantity(index)}><Image7 src={inputimg7}/></Button>
             </ButtonPart>
             <Image6 src={inputimg5}/>
-            <Price>{item.price} ₸</Price>
+            <Price>{(item.price * item.quantity).toFixed(2)} ₸</Price>
             <Image6 src={inputimg5}/>
             <ButtonDelete onClick={e=>deleteShoppingCartList(index)}>
               <Image8 src={inputimg8}/>
