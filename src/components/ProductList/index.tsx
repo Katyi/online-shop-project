@@ -2,16 +2,17 @@ import {products} from "../../db";
 import inputimg1 from '../../assets/productList/vector3.png';
 import inputimg2 from '../../assets/navbar/icon4.png';
 import inputimg3 from '../../assets/productList/vector4.png';
-// import inputimg4 from '../../assets/productList/icon12.png';
+import inputimg4 from '../../assets/productCard/icon13.png';
+import inputimg5 from '../../assets/productCard/icon12.png';
 import { useState, useEffect, createContext } from 'react';
 import Navbar from "../Navbar";
 import ProductItem from "../ProductItem";
 import Pagination from "../Pagination";
 import {Container, Wrapper, Part1, Part2, Part3, FilterContainer, Filter, FilterText1, Select1, Option1, Filter1, Filter2, Filter3}from "./productList.style.js";
 import {MainPart, SideBar, ProductListPart, InputLine, Input1, InputWithButton, Input2, InputText2, CheckBox,CheckBoxLine, Input3, Label1} from "./productList.style.js";
-import {Select2, Option2, SideBarMenu1, Filter4, PaginationPart} from "./productList.style.js";
+import {ProducerButton, SideBarMenu1, Filter4, PaginationPart} from "./productList.style.js";
 import {Text1, Text2, Text3, Text4, Text5, Text6, Text7, Text8, Text9} from "./productList.style.js";
-import {Image1, Image2, Image3} from "./productList.style.js";
+import {Image1, Image2, Image3, Image4} from "./productList.style.js";
 
 export interface Product {
   id: number;
@@ -26,7 +27,7 @@ export interface Product {
   brand:string;
   caretype: string[];
 };
-interface Data {
+export interface Data {
   products:Product[]
 };
 interface ProducerArr {
@@ -59,11 +60,15 @@ const ProductList = () => {
   const [selectedProductsList, setSelectedProductsList] = useState(selectedProducts);
   const [selectedProductQuantity, setSelectedProductQuantity] = useState(0);
   let totalPrice = 0;
+  const [indForShow, setindForShow] = useState(0);
 
+  // Кладем список товаров из json в localStorage
   localStorage.setItem("products", JSON.stringify(products));
+  // Достаем список товаров из localStorage
   let int  = localStorage.getItem("products") as string;
   let data:Data = JSON.parse(int);
   let produserArr:ProducerArr={};
+  // считаем кол-во производителей для отображения в чекбоксах
   data.products.forEach((item)=>{
   if (produserArr.hasOwnProperty(item.producer)){
     produserArr[item.producer] += 1
@@ -71,20 +76,22 @@ const ProductList = () => {
     produserArr[item.producer] = 1
   }
   })
+  // делаем массив производителей для чекбоксов
   for (const [key, value] of Object.entries(produserArr)) {
     newProducerArr.push({"name": key, "quantity": value, "checked": false})
   }
+  // по нажатию кнопки показать все или скрыть опредедяем кол-во чекбоксов
+  newProducerArr = indForShow === 0 ? newProducerArr.slice(0, 4) : newProducerArr;
   newProducerArr = produserName !== '' ? newProducerArr.filter((item) => item.name === produserName) : newProducerArr;
   
+  // статус галочек в чекбоксах
   let newProducerArrLength = newProducerArr.length;
   const [checked, setChecked] = useState(
     new Array(newProducerArrLength).fill(false)
   );
-  
   for (let i = 0; i < newProducerArr.length; i++) {
     newProducerArr[i].checked = checked[i]
   }
-  
   const handleOnChange = (position:number) => {
     const updatedCheckedState = checked.map((item, index) =>
       index === position ? !item : item
@@ -92,6 +99,7 @@ const ProductList = () => {
     setChecked(updatedCheckedState);
   };
  
+  // Подготовка списка товаров для отображения со всеми фильтрами и сортировками
   const getProducts = (
     page:number, 
     curcat:string, 
@@ -100,60 +108,63 @@ const ProductList = () => {
     price2:string, 
     checked:boolean[]
     ) => {
-        
-    let sortedFilteredData = [ ... data.products];
-    if (option !== "") {
-      if (option) {
-        if (option === "Название (по убыванию)") {
+      // сортировка
+      let sortedFilteredData = [ ... data.products];
+      if (option !== "") {
+        if (option) {
+          if (option === "Название (по убыванию)") {
           sortedFilteredData.sort((a, b) => (a.name < b.name ? 1 : -1));
-          console.log(sortedFilteredData)
         } else if (option === "Название (по возрастанию)") {
           sortedFilteredData.sort((a, b) => (a.name > b.name ? 1 : -1));
-          console.log(sortedFilteredData)
         } else if (option === "Цена (по убыванию)") {
           sortedFilteredData.sort((a, b) => b.price - a.price);
-          console.log(sortedFilteredData)
         } else if (option === "Цена (по возрастанию)") {
           sortedFilteredData.sort((a, b) => a.price - b.price);
-          console.log(sortedFilteredData)
         }
       }
     };
     
+    // фильтры по ценам
     let price3 = price2 === "" ? Infinity: Number(price2);
     sortedFilteredData = price1 !== '' || price2 !== '' 
       ? sortedFilteredData.filter(item => item.price >= Number(price1) && item.price <=price3) 
       : sortedFilteredData;
 
-    
-
+    // фильтры чекбоксов
     sortedFilteredData = checked.includes(true)
       ? sortedFilteredData.filter(item=>  newProducerArr.find((elem)=>elem.name ==item.producer)?.checked) 
       : sortedFilteredData;
     
+    // фильтры по уходу за телом, руками, ногами и т.д.
     sortedFilteredData = curcat !== '' ? sortedFilteredData.filter((item) => item.caretype.includes(curcat)) : sortedFilteredData;
 
-
     const totalCount = sortedFilteredData.length;
+    // окончательный список после фильтров и сортировки
     setProductList(
       sortedFilteredData.filter((item,index) => index >= page * limit - limit  && index < page * limit)
     );
+    // кол-во страниц для пагинации
     setTotalPages(Math.ceil(totalCount / limit));
     window.scrollTo({top: 0, left: 0, behavior: "smooth"});
   };
   
+  // изменить страницу
   const changePage = (page:number) => {
   setPage(page)
   }
 
+  // добавление товаров в корзину
   const handleShoppingCart = (product:Product) => {
     setSelectedProductsList((prev)=>[...prev, product]);
     setSelectedProductQuantity((prev)=>prev+1);
-  }
-  console.log(selectedProductsList);
+  };
   totalPrice = Number(selectedProductsList.reduce((acc, item)=> acc + item.price, 0).toFixed(2));
   localStorage.setItem("selectedProductsList", JSON.stringify(selectedProductsList));
   
+  // показать всех производителей или скрыть
+  const ShowAllProducers = () => {
+    setindForShow(indForShow === 0 ? 1 : 0);
+  };
 
   useEffect(() => {
     getProducts(page, curcat, selects,price1, price2,checked);
@@ -229,17 +240,12 @@ const ProductList = () => {
                 </CheckBoxLine>
               ))}
             </CheckBox>
-            <FilterContainer>  
-            <Filter>
-              <Select2>
-                <Option2>Показать все</Option2>
-                {newProducerArr.map((item, index)=>(
-                <Option2 key={index}>{item.name}</Option2>
-                ))}
-              </Select2>
-            </Filter>
-            
-          </FilterContainer>
+            {indForShow === 0 &&
+              <ProducerButton onClick={()=>ShowAllProducers()}>Показать все <Image4 src={inputimg4}/> </ProducerButton>
+            }
+            {indForShow === 1 &&
+              <ProducerButton onClick={()=>ShowAllProducers()}>Скрыть <Image4 src={inputimg5}/> </ProducerButton>
+            }
             <Image3 src={inputimg3}/>
             {/* Фильтры дублирующие верхние фильтры */}
             <SideBarMenu1>
@@ -313,12 +319,14 @@ const ProductList = () => {
             </SideBarMenu1>
             <Image3 src={inputimg3}/>
           </SideBar>
+          {/* Список товаров */}
           <ProductListPart>
             <MainContext.Provider value ={{getProducts}}>
               {productList?.map((product, index) => (
                 <ProductItem product={product} key={index} handleShoppingCart={handleShoppingCart}/>
               ))}
             </MainContext.Provider>
+            {/* Пагинация */}
             <PaginationPart>
               <Pagination page={page} changePage={changePage} totalPages={totalPages}/>
             </PaginationPart>

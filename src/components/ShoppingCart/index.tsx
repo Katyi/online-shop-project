@@ -34,15 +34,16 @@ const ShoppingCart = () => {
   let shoppingData:Product[] = JSON.parse(int);
   let shoppingData1:Product[] = [];
   shoppingData.forEach((obj, index)=>{
-    if (shoppingData1.find(i=>i.id===obj.id)===undefined){
+    if (shoppingData1.find(i => i.id === obj.id) === undefined) {
       if (!obj.quantity) obj.quantity = 1;
-      shoppingData1.push(obj)
+      shoppingData1.push(obj);
     } else {
-      let newObj = shoppingData1.find(i=>i.id===obj.id) as Product;
+      let newObj = shoppingData1.find(i => i.id === obj.id) as Product;
       newObj.quantity += 1;
+      newObj.price = newObj.quantity * obj.price;
     }
   })
-  let totalPrice = Number(shoppingData1.reduce((summ, item)=> summ + item.quantity * item.price, 0).toFixed(2));
+  let totalPrice = Number(shoppingData1.reduce((summ, item)=> summ + item.price, 0).toFixed(2));
   const [indForShow, setindForShow] = useState(0);
   const [shoppingDataLength, setShoppingDataLength] = useState(shoppingData1.reduce((acc, item)=>acc + item.quantity, 0));
   console.log(shoppingData1);
@@ -56,18 +57,26 @@ const ShoppingCart = () => {
   };
 
   const decreaseQuantity = (index1:number) => {
+    shoppingData1.forEach((item, index)=> index === index1 
+    ? item.price = Number((item.price - item.price/item.quantity).toFixed(2))
+    : item.price);
     shoppingData1.forEach((item, index)=> index === index1 ? item.quantity-- : item.quantity);
     shoppingData1 = shoppingData1.filter(item=>item.quantity !== 0);
     setProductList(shoppingData1);
     setShoppingDataLength(shoppingData1.reduce((acc, item)=>acc + item.quantity, 0));
     localStorage.setItem("selectedProductsList", JSON.stringify(shoppingData1));
   };
+
   const increaseQuantity = (index1:number) => {
+    shoppingData1.forEach((item, index)=> index === index1 
+    ? item.price = Number((item.price + item.price/item.quantity).toFixed(2))
+    : item.price);
     shoppingData1.forEach((item, index)=> index === index1 ? item.quantity++ : item.quantity);
     setProductList(shoppingData1);
     setShoppingDataLength(shoppingData1.reduce((acc, item)=>acc + item.quantity, 0));
     localStorage.setItem("selectedProductsList", JSON.stringify(shoppingData1));
   };
+
   const orderProducts = () => {
     shoppingData1 = [];
     setProductList([]);
@@ -88,7 +97,7 @@ const ShoppingCart = () => {
       <Part1>
         <Link to="/"><Text1>Главная</Text1></Link>
         <Image1  src={inputimg1}/>
-        <Text1>Корзина</Text1>
+        <Text1 style={{opacity: "0.5"}}>Корзина</Text1>
       </Part1>
       <Text2>Корзина</Text2>
       {indForShow === 1 &&

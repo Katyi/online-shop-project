@@ -296,7 +296,7 @@ export const Image2 = styled.img`
 `;
  export const CheckBox = styled.div`
   width: 135px;
-  height: 98px;
+  /* height: 98px; */
 
  `;
 export const CheckBoxLine = styled.div`
@@ -336,24 +336,23 @@ export const Image3 = styled.img`
 margin-top: 20px;
   width: 238px;
 `;
-
-export const Select2 = styled.select`
-  /* padding: 10px; */
-  font-style: normal;
+export const ProducerButton = styled.button`
   margin-top: 15px;
-  margin-right: 5px;
-  font-size: 12px;
+  height: 18px;
+  width: calc(80px + 5px + 7px);
+  font-style: normal;
   font-weight: 500;
+  font-size: 12px;
   line-height: 150%;
   color: #3F4E65;
-  height: 18px;
-  /* ${mobile({margin:"10px 0px"})} */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF;
 `;
-export const Option2 = styled.option`
+export const Image4 = styled.img`
   width: 7px;
   height: 7px;
-  color: #3F4E65;
-  transform: rotate(180deg);
 `;
 export const SideBarMenu1 = styled.div`
   margin-top: 20px;

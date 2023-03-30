@@ -27,7 +27,7 @@ const ProductItem = (props: Props) => {
       <BottomPart>
       {/* Название товара */}
       <Part1_1>
-        <Link to="/productCard"><Text1><span style={{fontWeight: 700}}>{product.name.split(' ')[0].concat(' ')}</span>
+        <Link to={`/productCard/${product.id}`}><Text1><span style={{fontWeight: 700}}>{product.name.split(' ')[0].concat(' ')}</span>
          {(product.name.split(' ').filter((item, index)=> index>0).join(' '))}
          </Text1>
         </Link>
