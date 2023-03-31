@@ -1,31 +1,22 @@
 import styled from 'styled-components';
-import {mobile, tablet, xl} from "../../responsive";
+import {xs, mobile, tablet, xl, xxl} from "../../responsive";
 
 export const Wrapper = styled.div`
   overflow: hidden;
 	display: flex;
 	flex-direction: column;
   align-items: center;
-  /* justify-content: flex-start; */
-  /* margin: 0px auto; */
+  background: #FFFFFF;
 `;
 export const Container = styled.div`
-  max-width: 1370px;
-  height: 3136px;
-  /* display: flex; */
-  /* flex-direction: column; */
-  background-color: lightblue;
-  /* align-items: flex-start; */
-  /* margin-top: 100px; */
-	// justify-content: center;
-	// flex-direction: column;
-	/* margin: 0 0; */
+  max-width: 1366px;
 `;
 export const Part1 = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100vw;
+  align-items: center;
   margin-top: 45px;
+  ${tablet({display:"none"})}
 `;
 export const Text1 = styled.div`
   height: 17px;
@@ -40,26 +31,71 @@ export const Image1 = styled.img`
   margin-right: 10px;
   height: 16px;
 `;
+
 export const Part2 = styled.div`
   display: flex;
+  /* width: 100vw; */
   flex-direction: row;
   justify-content: space-between;
-  /* width: 100vw; */
   margin-top: 50px;
+  ${xl({flexWrap: "wrap"})};
+  ${tablet({flexWrap: "nowrap", flexDirection: "column", marginTop:"20px"})};
+`;
+export const NavigateButtonLine = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+  ${xxl({display: "none"})};
+  ${tablet({display:"flex"})};
+`;
+export const Image5 = styled.img`
+  width: 32px;
+  height: 32px;
+`;
+export const Image6 = styled.img`
+  margin-left: -18px;
+`;
+export const Text10 = styled.div`
+  margin-left: 23px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 120%;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #3F4E65;
 `;
 export const Text2 = styled.div`
-  width: 495px;
-  height: 48px;
+  /* width: 495px; */
+  /* height: 48px; */
   font-style: normal;
   font-weight: 500;
   font-size: 40px;
   line-height: 120%;
   color: #111111;
+  ${tablet({fontSize:"20px", marginTop:"25px", marginLeft: "15px"})};
 `;
+export const Part_tablet1 = styled.div`
+  ${xxl({display:"none"})}
+  ${tablet({display:"block", marginTop:"19px", marginLeft:"15px"})};
+`;
+
+export const PartForHide = styled.div`
+  
+`;
+export const ButtonOpenOrHide = styled.button`
+  display: flex;
+  margin-left: 43px;
+  align-items: center;
+  ${xs({marginLeft:"5px"})}
+`;
+
 export const FilterContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  ${xl({marginTop:"25px"})};
+  ${tablet({marginLeft:"15px"})}
 `;
 export const Filter = styled.div`
   /* ${mobile({margin:"0px 20px", display: "flex", flexDirection:"column"})} */
@@ -90,9 +126,8 @@ export const Part3 = styled.div`
   height: 70px;
   flex-direction: row;
   justify-content: space-between;
-  /* width: 100vw; */
-  /* background-color: wheat; */
   margin-top: 25px;
+  ${xl({display: "none"})}
 `;
 export const Filter1 = styled.button`
   width: 100px;
@@ -149,35 +184,49 @@ export const Filter3 = styled.button`
   line-height: 17px;
 `;
 export const MainPart = styled.div`
-  /* height: 100%; */
-  background-color: violet;
+  margin-bottom: 102px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-top: 30px;
+  ${tablet({marginTop: "37px"})}
 `;
 export const SideBar = styled.div`
   width: 238px;
   margin-top: 20px;
+  margin-right: 108px;
+  ${xl({marginRight: "50px", marginLeft:"50px"})}
+  ${tablet({display: "none"})}
+  ${mobile({display: "none"})}
 `;
 export const ProductListPart = styled.div`
-  width: calc(326px * 3 + 21px * 3);
-  height: calc(490px + 21px);
-  /* height: auto; */
   display: flex;
-  flex-direction: row;
-  /* justify-content: space-between; */
   flex-wrap: wrap;
+  justify-content: flex-end;
+  /* flex-direction: row-reverse; */
+  /* ${xl({justifyContent: "space-evenly"})} */
 `;
 export const Text3 = styled.div`
-  height: 24px;
-  width: 215px;
+  /* height: 24px;
+  width: 215px; */
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 150%;
   color: #111111;
   cursor: pointer;
+  align-items: center;
+`;
+export const Text3_1 = styled.div`
+  height: 17px;
+  /* width: 99px; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #3F4E65;
+  cursor: pointer;
+  /* ${tablet({marginTop:"19px"})} */
 `;
 export const Text4 = styled.div`
   margin-top: 10px;
@@ -189,6 +238,7 @@ export const Text4 = styled.div`
   line-height: 150%;
   color: #3F4E65;
   display: flex;
+  ${tablet({marginTop:"15px"})}
 `;
 export const Text5 = styled.div`
   margin-left: 10px;
@@ -297,7 +347,7 @@ export const Image2 = styled.img`
  export const CheckBox = styled.div`
   width: 135px;
   /* height: 98px; */
-
+  margin-top: 10px;
  `;
 export const CheckBoxLine = styled.div`
   display: flex;
@@ -333,8 +383,9 @@ export const Text8 = styled.div`
   /* text-align: center; */
 `;
 export const Image3 = styled.img`
-margin-top: 20px;
-  width: 238px;
+  margin-top: 20px;
+  /* width: 238px; */
+  /* ${tablet({marginBottom:"19px"})} */
 `;
 export const ProducerButton = styled.button`
   margin-top: 15px;
@@ -356,8 +407,7 @@ export const Image4 = styled.img`
 `;
 export const SideBarMenu1 = styled.div`
   margin-top: 20px;
-  /* width: 224px; */
-  /* height: 277px; */
+  ${tablet({marginTop:"19px"})}
 `;
 export const Filter4 = styled.div`
   height: 21px;
@@ -369,16 +419,20 @@ export const Filter4 = styled.div`
   color: #3F4E65;
 `;
 export const PaginationPart = styled.div`
+  /* position: relative; */
+  margin-top: 50px;
   width: 100%;
   display: flex;
   justify-content: center;
+  ${tablet({marginTop:"45px"})}
 `;
 export const Text9 = styled.p`
-  width: 910px;
+  max-width: 910px;
   margin-top: 68px;
   font-style: normal;
   font-size: 14px;
   font-weight: 400;
   line-height: 150%;
   color: #3F4E65;
+  ${tablet({paddingLeft:"15px", paddingRight:"15px", marginTop:"35px", marginBottom:"50px"})}
 `;

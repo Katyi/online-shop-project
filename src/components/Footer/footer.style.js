@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {mobile, tablet, xl} from "../../responsive";
+import {mobile, tablet, lg, xl, xxl} from "../../responsive";
 
 export const Wrapper = styled.div`
   overflow: hidden;
@@ -12,50 +12,86 @@ export const Wrapper = styled.div`
 `;
 export const Container = styled.div`
   max-width: 1366px;
-  /* height: 500px; */
+  display: flex;
   margin-top: 71px;
   margin-bottom: 116px;
-	display: flex;
   flex-direction: row;
-	/* align-items: center; */
 	justify-content: space-between;
-	/* margin: 0px auto; */
-  /* height: 170px; */
-  /* background-color: lightblue; */
-  
-  box-shadow: 0px 15px 70px -11px rgba(43, 28, 1, 0.04);
-  
-  ${mobile({
-    height:"93px",
-    marginTop: "10px"
-    })}
-`;
-export const Column = styled.div`
-  /* width: 20vw; */
+	box-shadow: 0px 15px 70px -11px rgba(43, 28, 1, 0.04);
+  ${lg({marginBottom: "50px", flexWrap:"wrap", justifyContent:"center"})}
+  ${tablet({marginTop: "16px", marginBottom: "15px"})}
+  `;
+export const Column1 = styled.div`
+  width: 28vw;
   display: flex;
   flex-direction: column;
   justify-content: baseline;
-  /* align-items: center; */
+  ${lg({width: "50vw", height: "auto", paddingLeft: "45px"})}
+  ${tablet({width: "100vw", alignItems: "center", height: "auto", paddingLeft:"15px", paddingRight: "15px"})}
+`;
+export const Column2 = styled.div`
+  width: 19vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  justify-content: flex-start;
+  ${lg({width: "50vw", height: "auto", paddingLeft: "45px"})}
+  ${tablet({width: "50%", marginTop: "30px", paddingLeft: "15px", paddingRight: "15px"})}
+`;
+export const Column3 = styled.div`
+  width: 19vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  ${lg({width: "50%", paddingLeft: "45px", marginTop: "30px"})}
+  ${tablet({width: "50%", marginTop: "30px"})}
+`;
+export const Column4 = styled.div`
+  width: 21vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  ${lg({width: "50%", paddingLeft: "45px", marginTop: "30px"})}
+  ${tablet({display: "none"})}
+`;
+export const Column5 = styled.div`
+  width: 11vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  ${lg({width: "100%", paddingLeft: "45px", marginTop: "30px"})}
+  ${tablet({width: "50vw", marginTop: "25px", paddingLeft: "15px"})}
+`;
+export const Column6 = styled.div`
+  width: 11vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  ${xxl({display:"none"})}
+  ${tablet({display: "block" , width: "50vw", marginTop: "55px"})}
 `;
 export const Image1 = styled.img` //logo
   height: 66px;
   width: 156px;
-  /* ${mobile({height: "41px", width: "97px"})} */
+  ${tablet({height: "41px", width: "97px"})}
 `;
 export const Text1 = styled.div`
   margin-top: 15px;
   width: 320px;
-  height: 96px;
-  /* text-align: start; */
+  /* height: 96px; */
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
   color: #FFFFFF;
+  ${tablet({width: "auto", 
+  // marginLeft: "15px", marginRight:"15px"
+  })}
+
 `;
 export const Text2 = styled.div`
   width: 179px;
-  height: 18px;
+  /* height: 18px; */
   margin-top: 45px;
   /* text-align: start; */
   font-style: normal;
@@ -63,6 +99,7 @@ export const Text2 = styled.div`
   font-size: 12px;
   line-height: 150%;
   color: #FFFFFF;
+  ${tablet({marginTop: "15px"})}
 `;
 export const Input = styled.div`
   margin-top: 14px;
@@ -116,7 +153,28 @@ export const Link1 = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${mobile({display: "none"})}
+`;
+export const Row1 = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  justify-content: space-between;
+  padding-left: 15px;
+  padding-right: 15px;
+
+`;
+export const Link2 = styled.div`
+  margin-top: 20px;
+  width: 149px;
+  height: 40px;
+  padding: 10px 19px;
+  border-radius: 79px;
+  background-color: #FFC85E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ${xxl({display:"none"})}
+  ${tablet({display: "flex"})}
 `;
 export const Text5 = styled.div`
   font-style: normal;
@@ -124,6 +182,7 @@ export const Text5 = styled.div`
   font-size: 14px;
   line-height: 17px;
   color: #FFFFFF;
+  ${tablet({fontSize: "12px", lineHeight: "15px"})}
 `;
 export const Image3 = styled.img`
   height: 17px;
@@ -132,6 +191,7 @@ export const Image3 = styled.img`
 `;
 export const Logos = styled.div`
   margin-top: 15px;
+  ${tablet({marginTop:"17px"})}
 `;
 export const Image4 = styled.img`
   height: 39px;
@@ -188,6 +248,7 @@ export const Visas = styled.div`
   margin-top: 25px;
   display: flex;
   justify-content: left;
+  ${tablet({marginTop:"10px"})}
 `;
 export const Image6 = styled.img`
   height: 39px;

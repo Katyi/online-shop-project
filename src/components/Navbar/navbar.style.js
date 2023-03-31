@@ -1,14 +1,12 @@
-import {mobile, tablet, xl} from "../../responsive";
+import {mobile, tablet, xl, xxl} from "../../responsive";
 import styled from 'styled-components';
-import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
   overflow: hidden;
 	display: flex;
 	flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
-  margin: 0px auto;
+  background: #FFFFFF;
 `;
 export const Container = styled.div`
   max-width: 1366px;
@@ -18,32 +16,24 @@ export const Container = styled.div`
 	flex-direction: column;
 	/* margin: 0px auto; */
   /* height: 170px; */
-  /* background-color: red; */
-  ${mobile({
-    height:"93px",
-    marginTop: "10px"
-    })}
+  ${tablet({marginTop: "10px"})}
 `;
 export const Menu = styled.div`
   height: 61px;
   /* width: 71.1458333vw; */
   width: 1366px;
-  background-color: rosybrown;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  /* justify-content: center; */
   flex-wrap: wrap;
-  ${xl({justifyContent: "center", height: "80px"})}
-  ${mobile({display:"none"})}
-
+  ${xl({justifyContent: "center", height: "80px", width: "100vw"})}
+  ${tablet({display:"none"})}
 `;
 export const Menu1 = styled.div`
   height: 34px;
   width: calc(275px + 178px + 41px);
   /* width: calc(494px / 1366px * 100%);//494px */
-  background-color: green;
   display: flex;
   align-items: center;
   ${xl({width: "700px"})}
@@ -84,7 +74,6 @@ export const Text = styled.div`
 export const Menu2 = styled.div`
   height: 29px;
   width: 512px;
-  background-color: yellow;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -102,17 +91,10 @@ export const Image4 = styled.img`
 `;
 export const Header = styled.div`
   height: calc(96px +12px);
-  /* background-color: teal; */
-  /* width: 71.1458333vw; */
   width: 1366px;
-  /* display: flex; */
-  /* flex-direction: row; */
-  /* align-items: center; */
-  /* justify-content: space-between; */
-  /* display: none; */
   ${xl({justifyContent: "center", height: "auto", width: "700px"})}
-  ${tablet({justifyContent: "center", height: "auto", width: "450px"})}
-  ${mobile({height: "61px", width: "100vw",
+  /* ${tablet({justifyContent: "center", height: "auto", width: "450px"})} */
+  ${tablet({height: "61px", width: "100vw",
   display: "flex", alignItem: "center", flexDirection: "row", justifyContent: "space-between"
   })}
 `;
@@ -120,24 +102,23 @@ export const Image5 = styled.img`
   display: flex;
   justify-content: baseline;
   height: 1px;
-  ${mobile({display: "none"})}
+  ${tablet({display: "none"})}
+  /* ${mobile({display: "none"})} */
 `;
 export const HeaderMenu = styled.div`
-  /* max-width: 1366px; */
-  /* width: 71.1458333vw; */
-  /* height: calc(95px + 12px); */
-  /* background-color: wheat; */
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  ${mobile({flexWrap: "nowrap", width: "100vw"})}
+  ${tablet({flexWrap: "nowrap", width: "100vw"})}
+  /* ${mobile({flexWrap: "nowrap", width: "100vw"})} */
 `;
 export const Image6 = styled.img` //logo
   height: 66px;
   width: 156px;
-  ${mobile({height: "41px", width: "97px"})}
+  ${tablet({height: "41px", width: "97px"})}
+  /* ${mobile({height: "41px", width: "97px"})} */
 `;
 export const Link1 = styled.div`
   width: 192px;
@@ -148,7 +129,8 @@ export const Link1 = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${mobile({display: "none"})}
+  ${tablet({display: "none"})}
+  /* ${mobile({display: "none"})} */
 `;
 export const Text0 = styled.div`
   /* margin-left: 6px; */
@@ -173,7 +155,8 @@ export const Input = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  ${mobile({display: "none"})}
+  ${tablet({display: "none"})}
+  /* ${mobile({display: "none"})} */
 `;
 export const InputText = styled.div`
   padding-left: 20px;
@@ -197,7 +180,8 @@ export const Info = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  ${mobile({display: "none"})}
+  ${tablet({display: "none"})}
+  /* ${mobile({display: "none"})} */
 `;
 export const PhoneInfo = styled.div`
   width: 152px;
@@ -235,7 +219,8 @@ export const Image9 = styled.img`
 export const Image10 = styled.img`
   /* margin-left: 25px; */
   height: 49px;
-  ${mobile({display: "none"})}
+  ${tablet({display: "none"})}
+  /* ${mobile({display: "none"})} */
 `;
 export const Link2 = styled.div`
   width: 200px;
@@ -246,7 +231,8 @@ export const Link2 = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${mobile({display: "none"})}
+  ${tablet({display: "none"})}
+  /* ${mobile({display: "none"})} */
 `;
 export const Image11 = styled.img`
   height: 17px;
@@ -256,7 +242,8 @@ export const Image11 = styled.img`
 export const Image12 = styled.img`
   /* margin-left: 25px; */
   height: 49px;
-  ${mobile({display: "none"})}
+  ${tablet({display: "none"})}
+  /* ${mobile({display: "none"})} */
 `;
 export const Cart = styled.div`
   /* margin-left: 25px; */
@@ -266,7 +253,8 @@ export const Cart = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  ${mobile({width: "33px", marginRight: "15px"})}
+  ${tablet({width: "33px", marginRight: "15px"})}
+  /* ${mobile({width: "33px", marginRight: "15px"})} */
 `;
 export const Cart1 = styled.div`
   /* margin-left: 50px; */
@@ -281,8 +269,7 @@ export const Cart1 = styled.div`
 export const Image13 = styled.img`
   height: 46px;
   width: 46px;
-  /* background: red; */
-  /* ${mobile({height: "25px", width: "25px"})} */
+  ${tablet({height: "25px", width: "25px"})}
 `;
 export const Image14 = styled.img`
   /* height: 23px;
@@ -290,7 +277,7 @@ export const Image14 = styled.img`
   /* padding: 1px; */
   margin-left: calc(-46px + 36px);
   margin-top: 1px;
-  /* ${mobile({height: "17px", width: "17px", marginLeft: "-10px", marginTop: "-5px"})} */
+  ${tablet({height: "17px", width: "17px", marginLeft: "-10px", marginTop: "-5px"})}
 `;
 export const Text4 = styled.div`
   font-style: normal;
@@ -300,12 +287,14 @@ export const Text4 = styled.div`
   color: #FFFFFF;
   margin-left: 41px;
   margin-top: -40px;
-  ${mobile({fontSize: "10px", lineHeight: "12px", marginLeft: "20px", marginTop: "-27px" })}
+  ${tablet({fontSize: "10px", lineHeight: "12px", marginLeft: "20px", marginTop: "-27px" })}
+  /* ${mobile({fontSize: "10px", lineHeight: "12px", marginLeft: "20px", marginTop: "-27px" })} */
 `;
 export const Cart2 = styled.div`
   /* margin-left: 50px; */
   /* width: 128px; */
   /* height: 46px; */
+  ${tablet({display: "none"})}
   ${mobile({display: "none"})}
 `;
 export const Text5 = styled.div`
@@ -324,7 +313,7 @@ export const Text6 = styled.div`
 `;
 export const Image15 = styled.img`
   display: none;
-  ${mobile({display: "flex", height: "32px", width: "32px", marginLeft: "15px"})}
+  ${tablet({display: "flex", height: "32px", width: "32px", marginLeft: "15px"})}
 `;
 export const Image16 = styled.img`
   display: flex;
@@ -333,19 +322,13 @@ export const Image16 = styled.img`
 `;
 export const Header2 = styled.div`
   display: none;
-  ${mobile({height: "41px", width: "100vw",
+  ${tablet({height: "41px", width: "100vw",
     display: "flex", alignItem: "center", flexDirection: "row", justifyContent: "space-between",
-    // backgroundColor: "teal"
   })}
 `;
 export const Header2Part1 = styled.div`
   display: flex;
-  /* flex-direction: row;
-  align-items: center;
-  justify-content: center; */
   margin: auto;
-  /* flex-wrap: wrap; */
-  /* background-color: "red"; */
 `;
 export const Image17 = styled.img`
   height: 15px;
@@ -381,5 +364,5 @@ export const Text8 = styled.div`
 `;
 export const Image20 = styled.img`
   display: none;
-  ${mobile({display: "flex", justifyContent: "baseline", height: "1px"})}
+  ${tablet({display: "flex", justifyContent: "baseline", height: "1px"})}
 `;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {mobile, tablet, xl} from "../../responsive";
 
 export const Container = styled.div`
   width: 326px;
@@ -6,11 +7,12 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #FFFFFF;
-  margin-left: 21px;
   margin-bottom: 21px;
   padding-bottom: 29px;
   box-shadow: 0px 14px 39px -11px rgba(0, 0, 0, 0.06);
   border-radius: 10px;
+  ${xl({width: "400px"})};
+  ${tablet({width: "96vw", marginBottom:"10px"})};
 `;
 // Фото товара
 export const Part0 = styled.div`

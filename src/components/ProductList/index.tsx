@@ -4,15 +4,20 @@ import inputimg2 from '../../assets/navbar/icon4.png';
 import inputimg3 from '../../assets/productList/vector4.png';
 import inputimg4 from '../../assets/productCard/icon13.png';
 import inputimg5 from '../../assets/productCard/icon12.png';
+import inputimg6 from '../../assets/productList/rectangle1.png';
+import inputimg7 from '../../assets/productList/vector15.png';
+import inputimg8 from '../../assets/productList/vector16.png';
+import inputimg9 from '../../assets/productList/vector17.png';
 import { useState, useEffect, createContext } from 'react';
 import Navbar from "../Navbar";
 import ProductItem from "../ProductItem";
 import Pagination from "../Pagination";
 import {Container, Wrapper, Part1, Part2, Part3, FilterContainer, Filter, FilterText1, Select1, Option1, Filter1, Filter2, Filter3}from "./productList.style.js";
 import {MainPart, SideBar, ProductListPart, InputLine, Input1, InputWithButton, Input2, InputText2, CheckBox,CheckBoxLine, Input3, Label1} from "./productList.style.js";
-import {ProducerButton, SideBarMenu1, Filter4, PaginationPart} from "./productList.style.js";
-import {Text1, Text2, Text3, Text4, Text5, Text6, Text7, Text8, Text9} from "./productList.style.js";
-import {Image1, Image2, Image3, Image4} from "./productList.style.js";
+import {ProducerButton, SideBarMenu1, Filter4, PaginationPart, Part_tablet1, NavigateButtonLine, ButtonOpenOrHide, PartForHide} from "./productList.style.js";
+import {Text1, Text2, Text3, Text3_1, Text4, Text5, Text6, Text7, Text8, Text9, Text10} from "./productList.style.js";
+import {Image1, Image2, Image3, Image4, Image5, Image6} from "./productList.style.js";
+import { tablet } from "../../responsive";
 
 export interface Product {
   id: number;
@@ -63,7 +68,7 @@ const ProductList = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
   const [selects, setSelects] = useState("");
-  const limit = 15;
+  const limit = 12;
   const filterArr = ["Уход за телом", "Уход за руками", "Уход за ногами", "Уход за лицом", "Уход за волосами", "Средства для загара",
     "Средства для бритья", "Подарочные наборы", "Гигиеническая продукция", "Гигиена полости рта", "Бумажная продукция"];
   const curcat = "";
@@ -76,19 +81,19 @@ const ProductList = () => {
   let shoppingData:IProduct[] = JSON.parse(int1);
   let selectedProducts:Product[] = [];
   let shoppingDataLength = 0;
-  // const [totalPrice, setTotalPrice] = useState(0);
   let totalPrice = 0;
   if (shoppingData !== null) {
     selectedProducts = shoppingData;
     shoppingDataLength = shoppingData.reduce((acc, item)=>acc + item.quantity, 0);
     totalPrice = shoppingData.reduce((acc, item)=> acc + item.price * item.quantity, 0);
-    console.log(totalPrice);
+    // console.log(totalPrice);
   }
   const [selectedProductsList, setSelectedProductsList] = useState(selectedProducts);
   const [selectedProductQuantity, setSelectedProductQuantity] = useState(shoppingDataLength);
   
   const [indForShow, setIndForShow] = useState(0);
   const [indForHideButton, setIndForHideButton] = useState(0);
+  const [indForShowFilters, setIndForShowFilters] = useState(0);
 
   // Кладем список товаров из json в localStorage
   localStorage.setItem("products", JSON.stringify(products));
@@ -208,6 +213,11 @@ const ProductList = () => {
     setIndForShow(indForShow === 0 ? 1 : 0);
   };
 
+  // Показать фильтры ПОДБОР ПО ПАРАМЕТРАМ в tablet and mobile
+   const showFilters = () => {
+    setIndForShowFilters(indForShowFilters === 0 ? 1 : 0);
+   };
+
   useEffect(() => {
     getProducts(page, curcat, selects,price1, price2,checked);
   }, [page, curcat, selects, price1, price2, checked]);
@@ -222,7 +232,71 @@ const ProductList = () => {
           <Text1>Косметика и гигиена</Text1>
         </Part1>
         <Part2>
+          <NavigateButtonLine>
+            <Image5 src={inputimg6}/>
+            <Image6 src={inputimg7}/>
+            <Text10>НАЗАД</Text10>
+          </NavigateButtonLine>
           <Text2>Косметика и гигиена</Text2>
+          {/* Подбор параметром начиная с tablet and mobile */}
+          <Part_tablet1>
+            <Text3 style={{display: "flex"}}>
+              ПОДБОР ПО ПАРАМЕТРАМ
+              <ButtonOpenOrHide onClick={()=>{showFilters()}}>
+                <Image5 src={inputimg6}/>
+                {indForShowFilters === 0 && <Image6 src={inputimg8}/>}
+                {indForShowFilters === 1 && <Image6 src={inputimg9}/>}
+              </ButtonOpenOrHide>
+            </Text3>
+            {indForShowFilters === 0 && 
+              <PartForHide>
+              <Text4>
+                Цена 
+                <Text5>₸</Text5>
+              </Text4>
+              <InputLine>
+                <Input1 placeholder="0" type="number" value={price1} onChange={e => setPrice1(e.currentTarget.value)}/>
+                <Text6>-</Text6>
+                <Input1 placeholder="10 000" type="number" value={price2} onChange={e => setPrice2(e.currentTarget.value)}/>
+              </InputLine>
+              {/* Фильтр по производителям */}
+              <Text7>Производитель</Text7>
+              <InputWithButton>
+                <Input2 placeholder="Поиск..." type="text" onChange={(e)=>handleInputOnChange(e.currentTarget.value)}/>
+                <Image2 src={inputimg2}/>
+              </InputWithButton>
+              <CheckBox>
+                {newProducerArr.map((item,index)=>(
+                  <CheckBoxLine key={index}>
+                    <Label1>
+                    <Input3 type="checkbox" checked={checked[index]} onChange={()=>handleOnChange(index)}/>
+                    {item.name}
+                    </Label1>
+                    <Text8>{item.quantity}</Text8>
+                  </CheckBoxLine>
+                ))}
+              </CheckBox>
+              {indForShow === 0 && indForHideButton === 0 &&
+                <ProducerButton onClick={()=>showAllProducers()}>Показать все <Image4 src={inputimg4}/> </ProducerButton>
+              }
+              {indForShow === 1 && indForHideButton === 0 &&
+                <ProducerButton onClick={()=>showAllProducers()}>Скрыть <Image4 src={inputimg5}/> </ProducerButton>
+              }
+              <Image3 src={inputimg3}/>
+              </PartForHide>
+            }
+            {/* Фильтры дублирующие верхние фильтры */}
+            <SideBarMenu1>
+              <Text3_1 style={{marginBottom:"10px"}} onClick={() => getProducts(page, filterArr[0], selects, price1, price2, checked)}>{filterArr[0]}</Text3_1>
+              <Text3_1 style={{marginBottom:"10px"}} onClick={() => getProducts(page, filterArr[1], selects, price1, price2, checked)}>{filterArr[1]}</Text3_1>
+              <Text3_1 style={{marginBottom:"10px"}} onClick={() => getProducts(page, filterArr[2], selects, price1, price2, checked)}>{filterArr[2]}</Text3_1>
+              <Text3_1 style={{marginBottom:"10px"}} onClick={() => getProducts(page, filterArr[3], selects, price1, price2, checked)}>{filterArr[3]}</Text3_1>
+              <Text3_1 style={{marginBottom:"10px"}} onClick={() => getProducts(page, filterArr[4], selects, price1, price2, checked)}>{filterArr[4]}</Text3_1>
+              <Text3_1 style={{marginBottom:"10px"}} onClick={() => getProducts(page, filterArr[5], selects, price1, price2, checked)}>{filterArr[5]}</Text3_1>
+              <Text3_1 style={{marginBottom:"10px"}} onClick={() => getProducts(page, filterArr[6], selects, price1, price2, checked)}>{filterArr[6]}</Text3_1>
+              <Text3_1 onClick={() => getProducts(page, filterArr[7], selects, price1, price2, checked)}>{filterArr[7]}</Text3_1>
+            </SideBarMenu1>
+          </Part_tablet1>
           {/* Сортировка верхняя */}
           <FilterContainer>
             <Filter>
@@ -363,11 +437,15 @@ const ProductList = () => {
           </SideBar>
           {/* Список товаров */}
           <ProductListPart>
+            {/* <ProductsPart> */}
             <MainContext.Provider value ={{getProducts}}>
+            {/* <ProductsPart> */}
               {productList?.map((product, index) => (
                 <ProductItem product={product} key={index} handleShoppingCart={handleShoppingCart}/>
               ))}
+              {/* </ProductsPart> */}
             </MainContext.Provider>
+            {/* </ProductsPart> */}
             {/* Пагинация */}
             <PaginationPart>
               <Pagination page={page} changePage={changePage} totalPages={totalPages}/>
