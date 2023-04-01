@@ -3,7 +3,8 @@ import Navbar from "../Navbar";
 import { IProduct as IProduct} from "../ProductList/index";
 import {Wrapper,Container, Part1, Image1, Part2, ImagePart, InfoPart, Image2, Text1, ProductName, ProductSize, Image3, Image4, 
   Size, PriceButtonPart, Price, ButtonPart, Button1, Image5, Quantity, Button2, Text2, Image6, SomeTextPart, ShareIcon, Image7, 
-  Text3, Text4, ProductInfo, Text5, Button3, Button4, Text6, Image8, Image9, SpecificationInfo} from "./productCard.style.js";
+  Text3, Text4, ProductInfo, Text5, Button3, Button4, Text6, Image8, Image9, SpecificationInfo, NavigateButtonLine, Image10, 
+  Image11, Text7, Row1, Button5} from "./productCard.style.js";
 import inputimg1 from '../../assets/productCard/vector13.png';
 import inputimg2 from '../../assets/productItem/vector6.png';
 import inputimg3 from '../../assets/productItem/vector7.png';
@@ -14,6 +15,8 @@ import inputimg7 from '../../assets/productCard/shareIcon.png';
 import inputimg8 from '../../assets/productCard/icon12.png';
 import inputimg9 from '../../assets/productCard/icon13.png';
 import inputimg10 from '../../assets/productCard/vector14.png';
+import inputimg11 from '../../assets/productList/rectangle1.png';
+import inputimg12 from '../../assets/productList/vector15.png';
 import { Link } from "react-router-dom";
 
 export interface Data {
@@ -94,9 +97,20 @@ const ProductCard = () => {
       <Navbar selectedProductQuantity={selectedProductQuantity} totalPrice={totalPrice}/>
       <Container>
         {/* хлебные крошки */}
-        <Part1><Link to="/">Главная</Link><Image1 src={inputimg1}/>
-        <Link to="/">Каталог</Link>
-        <Image1 src={inputimg1}/>{productItem.name}</Part1>
+        <Part1>
+          {/* Главная тоже ведет в каталог */}
+          <Link to="/">Главная</Link> 
+          <Image1 src={inputimg1}/>
+          <Link to="/">Каталог</Link>
+        <Image1 src={inputimg1}/>{productItem.name}
+        </Part1>
+        <Link to="/">
+          <NavigateButtonLine>
+            <Image10 src={inputimg11}/>
+            <Image11 src={inputimg12}/>
+            <Text7>НАЗАД</Text7>
+          </NavigateButtonLine>
+        </Link>
         <Part2>
           {/* фото товара */}
           <ImagePart>
@@ -116,9 +130,9 @@ const ProductCard = () => {
             <PriceButtonPart>
               <Price>{productItem.price} ₸</Price>
               <ButtonPart>
-                <Button1 onClick={()=>decreaseQuantity()}><Image5 src={inputimg4}/></Button1>
+                <Button1 style={{background:"transparent"}} onClick={()=>decreaseQuantity()}><Image5 src={inputimg4}/></Button1>
                 <Quantity>{quantity}</Quantity>
-                <Button1 onClick={e=>increaseQuantity()}><Image5 src={inputimg5}/></Button1>
+                <Button1 style={{background:"transparent"}} onClick={e=>increaseQuantity()}><Image5 src={inputimg5}/></Button1>
               </ButtonPart>
               <Button2 onClick={()=>{handleShoppingCart()}}>
                 <Text2>В КОРЗИНУ</Text2>
@@ -126,9 +140,15 @@ const ProductCard = () => {
               </Button2>
             </PriceButtonPart>
             <SomeTextPart>
-              <ShareIcon><Image7 src={inputimg7}/></ShareIcon>
+              <Row1>
+                <Button5 onClick={()=>{handleShoppingCart()}}>
+                  <Text2>В КОРЗИНУ</Text2>
+                  <Image6 src={inputimg6}/>
+                </Button5>
+                <ShareIcon><Image7 src={inputimg7}/></ShareIcon>
+              </Row1>
               <Text3>При покупке от <span style={{fontWeight:"700"}}>10 000 ₸</span> бесплатная доставка по Кокчетаву и области</Text3>
-               <Text4>Прайс-лист</Text4>
+              <Text4>Прайс-лист</Text4>
             </SomeTextPart>
             <ProductInfo>
               <Text5><span style={{fontWeight:"300"}}>Производитель:</span> {productItem.producer}</Text5>
