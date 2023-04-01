@@ -7,10 +7,11 @@ import inputimg5 from '../../assets/shoppingCart/vector12.png';
 import inputimg6 from '../../assets/shoppingCart/buttonMinus.png';
 import inputimg7 from '../../assets/shoppingCart/buttonPlus.png';
 import inputimg8 from '../../assets/shoppingCart/buttonDelete.png';
-import inputimg9 from '../../assets/shoppingCart/buttonOrder.png';
+import inputimg9 from '../../assets/productList/rectangle1.png';
+import inputimg10 from '../../assets/productList/vector15.png';
 import {Wrapper,Container, Part1, Text1, Image1, Text2, Part2, Image2, CartItem, Image3, CartItemImg, CartItemInfo, Text3, Text4} from "./shoppingCart.style.js";
-import {CartItemInfoPart1, Size, Image4, Image5, Image6, ButtonPart, Button, Image7, Price, ButtonDelete, Image8, Part3, 
-  ButtonOrder, Image9, TotalPrice, Quantity, AfterOrderPart, Text5} from "./shoppingCart.style.js";
+import {CartItemInfoPart1, Size, Image4, Image5, Image6, Image6_1, Image7, ButtonPart, Button, Image10, Image11, Price, ButtonDelete, Image8, Part3, 
+  ButtonOrder, TotalPrice, Quantity, AfterOrderPart, Text5, Text6, Row1, NavigateButtonLine} from "./shoppingCart.style.js";
 import { Link } from 'react-router-dom';
 import { useState } from "react";
 import { IProduct as IProduct } from '../ProductList';
@@ -19,24 +20,26 @@ const ShoppingCart = () => {
   let int  = localStorage.getItem("selectedProductsList") as string;
   let shoppingData:IProduct[] = JSON.parse(int);
   let shoppingData1:IProduct[] = [];
-  // массив объектов корзины уникальным и считаю кол-во каждого товара
+
+  // делаю массив объектов корзины уникальным и считаю кол-во каждого товара
   shoppingData.forEach((obj, index)=>{
     if (shoppingData1.find(i => i.id === obj.id) === undefined) {
-      // obj.price = obj.quantity * obj.price;
       shoppingData1.push(obj);
-      
     } else {
       let newObj = shoppingData1.find(i => i.id === obj.id) as IProduct;
       newObj.quantity += 1;
-      // newObj.price = newObj.quantity * obj.price;
     }
   })
+
   // считаю общую стоимость корзины
   let totalPrice = Number(shoppingData1.reduce((summ, item)=> summ + item.quantity * item.price, 0).toFixed(2));
+
   // индикатор для появления надписи после заказа
   const [indForShow, setindForShow] = useState(0);
+  
   // считаю кол-во товаров в корзине
   const [shoppingDataLength, setShoppingDataLength] = useState(shoppingData1.reduce((acc, item)=>acc + item.quantity, 0));
+  
   // массив товаров в корзине
   const [productList, setProductList] = useState(shoppingData1);
   
@@ -50,9 +53,6 @@ const ShoppingCart = () => {
 
   // уменьшение кол-ва товаров в корзине
   const decreaseQuantity = (index1:number) => {
-    // shoppingData1.forEach((item, index)=> index === index1 
-    // ? item.price = Number((item.price - item.price/item.quantity).toFixed(2))
-    // : item.price);
     shoppingData1.forEach((item, index)=> index === index1 ? item.quantity-- : item.quantity);
     shoppingData1 = shoppingData1.filter(item=>item.quantity !== 0);
     setProductList(shoppingData1);
@@ -62,9 +62,6 @@ const ShoppingCart = () => {
 
   // увеличение кол-ва товаров в корзине
   const increaseQuantity = (index1:number) => {
-    // shoppingData1.forEach((item, index)=> index === index1 
-    // ? item.price = Number((item.price + item.price/item.quantity).toFixed(2))
-    // : item.price);
     shoppingData1.forEach((item, index)=> index === index1 ? item.quantity++ : item.quantity);
     setProductList(shoppingData1);
     setShoppingDataLength(shoppingData1.reduce((acc, item)=>acc + item.quantity, 0));
@@ -88,6 +85,14 @@ const ShoppingCart = () => {
         <Image1  src={inputimg1}/>
         <Text1 style={{opacity: "0.5"}}>Корзина</Text1>
       </Part1>
+      <Link to="/">
+        <NavigateButtonLine>
+          <Image10 src={inputimg9}/>
+          <Image11 src={inputimg10}/>
+          <Text6>НАЗАД</Text6>
+        </NavigateButtonLine>
+      </Link>
+      
       <Text2>Корзина</Text2>
       {indForShow === 1 &&
       <AfterOrderPart>
@@ -111,23 +116,27 @@ const ShoppingCart = () => {
               <Text4>{item.description}</Text4>
             </CartItemInfo>
             <Image6 src={inputimg5}/>
-            <ButtonPart>
-              <Button onClick={e=>decreaseQuantity(index)}><Image7 src={inputimg6}/></Button>
-              <Quantity>{item.quantity}</Quantity>
-              <Button onClick={e=>increaseQuantity(index)}><Image7 src={inputimg7}/></Button>
-            </ButtonPart>
-            <Image6 src={inputimg5}/>
-            <Price>{(item.price * item.quantity).toFixed(2)} ₸</Price>
-            <Image6 src={inputimg5}/>
-            <ButtonDelete onClick={e=>deleteShoppingCartList(index)}>
-              <Image8 src={inputimg8}/>
-            </ButtonDelete>
+            <Row1>
+              <ButtonPart>
+                <Button style={{background:"transparent"}} onClick={e=>decreaseQuantity(index)}><Image7 src={inputimg6}/></Button>
+                <Quantity>{item.quantity}</Quantity>
+                <Button style={{background:"transparent"}} onClick={e=>increaseQuantity(index)}><Image7 src={inputimg7}/></Button>
+              </ButtonPart>
+              <Image6_1 src={inputimg5}/>
+              <Price>{(item.price * item.quantity).toFixed(2)} ₸</Price>
+              <Image6_1 src={inputimg5}/>
+              <ButtonDelete onClick={e=>deleteShoppingCartList(index)}>
+                <Image8 src={inputimg8}/>
+              </ButtonDelete>
+            </Row1>
          </CartItem>
         </Part2>
         ))}
-        <Image2 src={inputimg2}/>
+        {indForShow === 0 &&
+          <Image2 src={inputimg2}/>
+        }
         <Part3>
-          <ButtonOrder onClick={e=>orderProducts()}><Image9 src={inputimg9}/></ButtonOrder>
+          <ButtonOrder onClick={e=>orderProducts()}>Оформить заказ</ButtonOrder>
           <TotalPrice>{totalPrice} ₸</TotalPrice>
         </Part3>
       </Container>
