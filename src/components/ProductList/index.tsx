@@ -18,6 +18,7 @@ import {ProducerButton, SideBarMenu1, Filter4, PaginationPart, Part_tablet1, Nav
 import {Text1, Text2, Text3, Text3_1, Text4, Text5, Text6, Text7, Text8, Text9, Text10} from "./productList.style.js";
 import {Image1, Image2, Image3, Image4, Image5, Image6} from "./productList.style.js";
 import { tablet } from "../../responsive";
+import Footer from "../Footer";
 
 export interface Product {
   id: number;
@@ -459,6 +460,7 @@ const ProductList = () => {
           </ProductListPart>
         </MainPart>
       </Container>
+      <Footer/>
     </Wrapper>
   );
 };

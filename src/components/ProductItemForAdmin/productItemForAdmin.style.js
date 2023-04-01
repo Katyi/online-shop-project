@@ -6,8 +6,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #FFFFFF;
-  margin-left: 21px;
-  margin-bottom: 21px;
+  margin-right: 10px;
+  margin-bottom: 14px;
   padding-bottom: 29px;
   box-shadow: 0px 14px 39px -11px rgba(0, 0, 0, 0.06);
   border-radius: 10px;
@@ -27,7 +27,7 @@ export const Image1 = styled.img`
 // вес и объем товара
 export const Part1 = styled.div`
   /* position: absolute; */
-  margin-top: 4px;
+  margin-top: 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -60,7 +60,7 @@ export const BottomPart = styled.div`
 // Название товара
 export const Part1_1 = styled.div`
   position: relative;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-left: 25px;
   /* margin-bottom: 15px; */
 `;
@@ -102,11 +102,13 @@ export const Barcode = styled.div`
 // Цена и корзина
 export const PriceLine = styled.div`
   /* margin-top: 15px; */
-  margin-left: 25px;
+  /* margin-left: 25px; */
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
+  padding-left: 20px;
+  padding-right: 30px;
 `;
 export const Price = styled.div`
   font-style: normal;
@@ -116,9 +118,9 @@ export const Price = styled.div`
   color: #111111;
 `;
 export const Button = styled.button`
-  width: 153px;
+  width: 120px;
   height: 45px;
-  margin-left: 40px;
+  margin-left: 5px;
   background: #FFC85E;
   border-radius: 80px;
   display: flex;

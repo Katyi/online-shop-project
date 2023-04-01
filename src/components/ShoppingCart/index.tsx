@@ -15,6 +15,7 @@ import {CartItemInfoPart1, Size, Image4, Image5, Image6, Image6_1, Image7, Butto
 import { Link } from 'react-router-dom';
 import { useState } from "react";
 import { IProduct as IProduct } from '../ProductList';
+import Footer from "../Footer";
 
 const ShoppingCart = () => {
   let int  = localStorage.getItem("selectedProductsList") as string;
@@ -140,6 +141,7 @@ const ShoppingCart = () => {
           <TotalPrice>{totalPrice} ₸</TotalPrice>
         </Part3>
       </Container>
+      <Footer/>
     </Wrapper>          
   );
 }

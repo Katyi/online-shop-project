@@ -18,6 +18,7 @@ import inputimg10 from '../../assets/productCard/vector14.png';
 import inputimg11 from '../../assets/productList/rectangle1.png';
 import inputimg12 from '../../assets/productList/vector15.png';
 import { Link } from "react-router-dom";
+import Footer from "../Footer";
 
 export interface Data {
   products:IProduct[]
@@ -195,6 +196,7 @@ const ProductCard = () => {
           </InfoPart>
         </Part2>
       </Container>
+      <Footer/>
     </Wrapper>          
   );
 }
