@@ -56,7 +56,6 @@ const ProductCard = () => {
 
   const [quantity, setQuantity] = useState(0);
   
-  console.log(quantity);
   // уменьшение количества и стоимости в карточке
   const decreaseQuantity = () => {
     if (quantity!==0) {
@@ -81,7 +80,6 @@ const ProductCard = () => {
       if( i>=0){ shoppingData[i].quantity  += quantity } else {shoppingData.push(newProd)};
     setSelectedProductQuantity((prev)=> prev + quantity);
     setSelectedProductsList((prev)=>[...prev, newProd]);
-    console.log(shoppingData);
     localStorage.setItem("selectedProductsList", JSON.stringify(shoppingData));
   };
   

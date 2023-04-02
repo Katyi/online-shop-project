@@ -14,13 +14,10 @@ export const Container = styled.div`
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	/* margin: 0px auto; */
-  /* height: 170px; */
   ${tablet({marginTop: "10px"})}
 `;
 export const Menu = styled.div`
   height: 61px;
-  /* width: 71.1458333vw; */
   width: 1366px;
   display: flex;
   flex-direction: row;
@@ -33,7 +30,6 @@ export const Menu = styled.div`
 export const Menu1 = styled.div`
   height: 34px;
   width: calc(275px + 178px + 41px);
-  /* width: calc(494px / 1366px * 100%);//494px */
   display: flex;
   align-items: center;
   ${xl({width: "700px"})}
@@ -79,7 +75,6 @@ export const Menu2 = styled.div`
   justify-content: space-between;
   ${xl({justifyContent: "space-evenly", width: "700px"})}
   ${tablet({width: "450px"})}
-  /* ${xl({width: "700px"})} */
 `;
 export const MenuItem = styled.div`
   font-size: 14px;
@@ -93,7 +88,6 @@ export const Header = styled.div`
   height: calc(96px +12px);
   width: 1366px;
   ${xl({justifyContent: "center", height: "auto", width: "700px"})}
-  /* ${tablet({justifyContent: "center", height: "auto", width: "450px"})} */
   ${tablet({height: "61px", width: "100vw",
   display: "flex", alignItem: "center", flexDirection: "row", justifyContent: "space-between"
   })}
@@ -103,7 +97,6 @@ export const Image5 = styled.img`
   justify-content: baseline;
   height: 1px;
   ${tablet({display: "none"})}
-  /* ${mobile({display: "none"})} */
 `;
 export const HeaderMenu = styled.div`
   display: flex;
@@ -112,13 +105,11 @@ export const HeaderMenu = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   ${tablet({flexWrap: "nowrap", width: "100vw"})}
-  /* ${mobile({flexWrap: "nowrap", width: "100vw"})} */
 `;
-export const Image6 = styled.img` //logo
+export const Image6 = styled.img`
   height: 66px;
   width: 156px;
   ${tablet({height: "41px", width: "97px"})}
-  /* ${mobile({height: "41px", width: "97px"})} */
 `;
 export const Link1 = styled.div`
   width: 192px;
@@ -130,10 +121,8 @@ export const Link1 = styled.div`
   align-items: center;
   justify-content: center;
   ${tablet({display: "none"})}
-  /* ${mobile({display: "none"})} */
 `;
 export const Text0 = styled.div`
-  /* margin-left: 6px; */
   font-style: normal;
   font-weight: 700;
   font-size: 14px;
@@ -146,7 +135,6 @@ export const Image7 = styled.img`
   margin-left: 12px;
 `;
 export const Input = styled.div`
-  /* margin-left: 15px; */
   height: 59px;
   width: 263px;
   padding: 13px 10px;
@@ -156,7 +144,6 @@ export const Input = styled.div`
   align-items: center;
   justify-content: space-between;
   ${tablet({display: "none"})}
-  /* ${mobile({display: "none"})} */
 `;
 export const InputText = styled.div`
   padding-left: 20px;
@@ -174,14 +161,12 @@ export const Image8 = styled.img`
   padding-right: 10px;
 `;
 export const Info = styled.div`
-  /* margin-left: 35px; */
   width: 236px;
   height: 92px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   ${tablet({display: "none"})}
-  /* ${mobile({display: "none"})} */
 `;
 export const PhoneInfo = styled.div`
   width: 152px;
@@ -217,10 +202,8 @@ export const Image9 = styled.img`
   width: 70px;
 `;
 export const Image10 = styled.img`
-  /* margin-left: 25px; */
   height: 49px;
   ${tablet({display: "none"})}
-  /* ${mobile({display: "none"})} */
 `;
 export const Link2 = styled.div`
   width: 200px;
@@ -232,7 +215,6 @@ export const Link2 = styled.div`
   align-items: center;
   justify-content: center;
   ${tablet({display: "none"})}
-  /* ${mobile({display: "none"})} */
 `;
 export const Image11 = styled.img`
   height: 17px;
@@ -240,13 +222,10 @@ export const Image11 = styled.img`
   margin-left: 12px;
 `;
 export const Image12 = styled.img`
-  /* margin-left: 25px; */
   height: 49px;
   ${tablet({display: "none"})}
-  /* ${mobile({display: "none"})} */
 `;
 export const Cart = styled.div`
-  /* margin-left: 25px; */
   width: 128px;
   height: 46px;
   display: flex;
@@ -254,17 +233,8 @@ export const Cart = styled.div`
   align-items: center;
   justify-content: space-between;
   ${tablet({width: "33px", marginRight: "15px"})}
-  /* ${mobile({width: "33px", marginRight: "15px"})} */
 `;
 export const Cart1 = styled.div`
-  /* margin-left: 50px; */
-  /* width: 128px; */
-  /* height: 46px; */
-  /* display: flex;
-  align-items: center;
-  justify-content: space-between; */
-  /* justify-content: "space-around"; */
-  
 `;
 export const Image13 = styled.img`
   height: 46px;
@@ -272,9 +242,6 @@ export const Image13 = styled.img`
   ${tablet({height: "25px", width: "25px"})}
 `;
 export const Image14 = styled.img`
-  /* height: 23px;
-  width: 23px; */
-  /* padding: 1px; */
   margin-left: calc(-46px + 36px);
   margin-top: 1px;
   ${tablet({height: "17px", width: "17px", marginLeft: "-10px", marginTop: "-5px"})}
@@ -288,12 +255,8 @@ export const Text4 = styled.div`
   margin-left: 41px;
   margin-top: -40px;
   ${tablet({fontSize: "10px", lineHeight: "12px", marginLeft: "20px", marginTop: "-27px" })}
-  /* ${mobile({fontSize: "10px", lineHeight: "12px", marginLeft: "20px", marginTop: "-27px" })} */
 `;
 export const Cart2 = styled.div`
-  /* margin-left: 50px; */
-  /* width: 128px; */
-  /* height: 46px; */
   ${tablet({display: "none"})}
   ${mobile({display: "none"})}
 `;
@@ -346,9 +309,6 @@ export const Image18 = styled.img`
 `;
 export const Header2Part2 = styled.div`
   display: flex;
-  /* flex-direction: row;
-  align-items: center;
-  justify-content: center; */
   margin: auto;
 `;
 export const Image19 = styled.img`

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {mobile, tablet, xl} from "../responsive";
+import {mobile, lg, tablet, xl} from "../responsive";
 
 export const Wrapper = styled.div`
   overflow: hidden;
@@ -13,7 +13,11 @@ export const Container = styled.div`
 `;
 export const Part1 = styled.div`
   text-align: center;
+  display: flex;
+  flex-direction: column;
   margin-top: 50px;
+  align-items: center;
+  justify-content: center;
 `;
 export const Text1 = styled.div`
   font-style: normal;
@@ -25,7 +29,7 @@ export const Text1 = styled.div`
 `;
 export const CreateButton = styled.button`
   width: 250px;
-  height: 59px;
+  height: 45px;
   margin-top: 20px;
   margin-left: 40px;
   background: #FFC85E;
@@ -36,14 +40,16 @@ export const CreateButton = styled.button`
   align-items: center;
   padding: 10px 19px;
   gap: 5px;
+  ${tablet({width: "180px"})}
 `;
 export const Text2 = styled.div`
   font-style: normal;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 12px;
   color: #FFFFFF;
   flex-grow: 0;
+  ${tablet({fontSize: "10px"})}
 `;
 export const MainPart = styled.div`
   margin-top: 50px;
@@ -53,12 +59,7 @@ export const ProductListPart = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: stretch;
+  justify-content: space-between;
   margin-left: 15px;
-`;
-
-export const PaginationPart = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${lg({justifyContent: "space-around"})};
 `;

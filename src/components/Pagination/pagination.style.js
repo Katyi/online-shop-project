@@ -4,7 +4,6 @@ export const PageWrapper = styled.div`
   margin-top: 50px;
   width: 234px;
   height: 35px;
-  /* background-color: red; */
   display: flex;
   justify-content: center;
   align-items: center;

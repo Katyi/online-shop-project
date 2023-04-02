@@ -1,7 +1,7 @@
 import {products} from "../db";
 import { Product as Product, Data as Data } from '../components/ProductList';
 import { useState, useEffect, createContext } from 'react';
-import {Container, Wrapper, Part1, Text1, Text2, MainPart, ProductListPart, PaginationPart, CreateButton}from "./admin.style";
+import {Container, Wrapper, Part1, Text1, Text2, MainPart, ProductListPart, CreateButton}from "./admin.style";
 import ProductItemForAdmin from "../components/ProductItemForAdmin";
 import { Link } from "react-router-dom";
 
@@ -43,10 +43,13 @@ const Admin = () => {
       <Container>
         <Part1>
           <Text1>Администрирование</Text1>
-        </Part1>
-        <CreateButton>
-          <Link to={"/createProduct"}><Text2>ДОБАВИТЬ НОВЫЙ ТОВАР</Text2></Link>
-        </CreateButton>
+        
+          <Link to={"/createProduct"}>
+            <CreateButton>
+              <Text2>ДОБАВИТЬ НОВЫЙ ТОВАР</Text2>
+            </CreateButton>
+          </Link>
+          </Part1>
         <MainPart>
           {/* Список товаров */}
           <ProductListPart>

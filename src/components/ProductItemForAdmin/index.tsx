@@ -40,11 +40,11 @@ const ProductItemForAdmin = (props: Props) => {
           <Text3>УДАЛИТЬ</Text3>
           <Image4 src={inputimg3}/>
         </Button>
-        <Button>
-          <Link to = {'/updateProduct/'+product.id} state={{ product: props.product }}>
-          <Text3>РЕДАКТИРОВАТЬ</Text3>
-          </Link>
-        </Button>
+        <Link to = {'/updateProduct/'+product.id} state={{ product: props.product }}>
+          <Button>
+            <Text3>РЕДАКТИРОВАТЬ</Text3>
+          </Button>
+        </Link>
       </PriceLine>
       </BottomPart>
     </Container>          

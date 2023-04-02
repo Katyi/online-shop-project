@@ -25,6 +25,7 @@ export const Part0 = styled.div`
 `;
 export const Image1 = styled.img`
   /* margin-top: 42px; */
+  height: 149px;
 `;
 // вес и объем товара
 export const Part1 = styled.div`

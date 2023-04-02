@@ -6,7 +6,6 @@ export const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   margin: 0px auto;
   background: #3F4E65;
 `;
@@ -70,7 +69,7 @@ export const Column6 = styled.div`
   ${xxl({display:"none"})}
   ${tablet({display: "block" , width: "50vw", marginTop: "55px"})}
 `;
-export const Image1 = styled.img` //logo
+export const Image1 = styled.img`
   height: 66px;
   width: 156px;
   ${tablet({height: "41px", width: "97px"})}
@@ -78,22 +77,16 @@ export const Image1 = styled.img` //logo
 export const Text1 = styled.div`
   margin-top: 15px;
   width: 320px;
-  /* height: 96px; */
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
   color: #FFFFFF;
-  ${tablet({width: "auto", 
-  // marginLeft: "15px", marginRight:"15px"
-  })}
-
+  ${tablet({width: "auto"})}
 `;
 export const Text2 = styled.div`
   width: 179px;
-  /* height: 18px; */
   margin-top: 45px;
-  /* text-align: start; */
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -111,7 +104,6 @@ export const Input = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* ${mobile({display: "none"})} */
 `;
 export const InputText = styled.div`
   width: 115px;

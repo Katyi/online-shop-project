@@ -87,7 +87,6 @@ const ProductList = () => {
     selectedProducts = shoppingData;
     shoppingDataLength = shoppingData.reduce((acc, item)=>acc + item.quantity, 0);
     totalPrice = shoppingData.reduce((acc, item)=> acc + item.price * item.quantity, 0);
-    // console.log(totalPrice);
   }
   const [selectedProductsList, setSelectedProductsList] = useState(selectedProducts);
   const [selectedProductQuantity, setSelectedProductQuantity] = useState(shoppingDataLength);
@@ -97,7 +96,11 @@ const ProductList = () => {
   const [indForShowFilters, setIndForShowFilters] = useState(0);
 
   // Кладем список товаров из json в localStorage
-  localStorage.setItem("products", JSON.stringify(products));
+  let currentData = localStorage.getItem('products') as string;
+  if (JSON.parse(currentData).products.length === 0) {
+    window.location.reload();
+    localStorage.setItem("products", JSON.stringify(products));
+  }
   // Достаем список товаров из localStorage
   let int  = localStorage.getItem("products") as string;
   let data:Data = JSON.parse(int);
