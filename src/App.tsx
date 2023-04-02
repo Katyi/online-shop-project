@@ -1,4 +1,4 @@
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css'
 import ProductList  from './components/ProductList';
 import Admin from './pages';
@@ -10,9 +10,9 @@ import UpdateProduct from './components/UpdateProduct';
 function App() {
   return (
     <div className="App">
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <Routes>
-          <Route path='/online-shop-project/' element={<ProductList/>}/>
+          <Route path='/' element={<ProductList/>}/>
           <Route path='/admin' element={<Admin/>}/>
           <Route path='/productCard/:id' element={<ProductCard/>}/>
           <Route path='/shoppingCart' element={<ShoppingCart/>}/>
