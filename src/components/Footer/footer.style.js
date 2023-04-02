@@ -8,9 +8,11 @@ export const Wrapper = styled.div`
   align-items: center;
   margin: 0px auto;
   background: #3F4E65;
+  width: 100vw;
 `;
 export const Container = styled.div`
   max-width: 1366px;
+  background: #3F4E65;
   display: flex;
   margin-top: 71px;
   margin-bottom: 116px;
