@@ -69,7 +69,7 @@ const UpdateProduct = () => {
     
     data.products.sort((a,b)=>a.id > b.id ? 1 : -1);
     localStorage.setItem('products',JSON.stringify({products:data.products}));
-    navigate("/admin");
+    navigate("/online-shop-project/admin");
   };
 
   function handleSelect(data:any) {

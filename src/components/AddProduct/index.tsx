@@ -60,7 +60,7 @@ const AddProduct = () => {
 
     data.products.push(newProduct);
     localStorage.setItem('products',JSON.stringify({products:data.products}));
-    navigate("/admin");
+    navigate("/online-shop-project/admin");
   };
 
 
