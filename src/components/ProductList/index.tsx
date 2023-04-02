@@ -97,10 +97,14 @@ const ProductList = () => {
 
   // Кладем список товаров из json в localStorage
   let currentData = localStorage.getItem('products') as string;
-  if (JSON.parse(currentData).products.length === 0) {
+    if (!currentData) {
     window.location.reload();
     localStorage.setItem("products", JSON.stringify(products));
   }
+  // if (JSON.parse(currentData).products.length === 0) {
+  //   window.location.reload();
+  //   localStorage.setItem("products", JSON.stringify(products));
+  // }
   // Достаем список товаров из localStorage
   let int  = localStorage.getItem("products") as string;
   let data:Data = JSON.parse(int);
