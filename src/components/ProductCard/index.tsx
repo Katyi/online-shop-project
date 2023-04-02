@@ -49,7 +49,8 @@ const ProductCard = () => {
   // Все товары из json
   let int1  = localStorage.getItem("products") as string;
   let data:Data = JSON.parse(int1);
-  const productId = Number(window.location.pathname.split('/')[2]);
+  const productId = Number(window.location.hash.split('/')[2]);
+  console.log(window.location.hash.split('/')[2])
   const [productItem, setProductItem] = useState(data.products.filter(item=>item.id === productId)[0]);
   
   // для расчета стоимости и количества в карточке
