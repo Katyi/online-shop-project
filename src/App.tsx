@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css'
 import ProductList  from './components/ProductList';
 import Admin from './pages';
@@ -12,12 +12,12 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path='/online-shop-project' element={<ProductList/>}/>
-          <Route path='/online-shop-project/admin' element={<Admin/>}/>
-          <Route path='/online-shop-project/productCard/:id' element={<ProductCard/>}/>
-          <Route path= '/online-shop-project/shoppingCart' element={<ShoppingCart/>}/>
-          <Route path='/online-shop-project/createProduct' element={<AddProduct/>}/>
-          <Route path='/online-shop-project/updateProduct/:id' element={<UpdateProduct/>}/>
+          <Route path='/' element={<ProductList/>}/>
+          <Route path='/admin' element={<Admin/>}/>
+          <Route path='/productCard/:id' element={<ProductCard/>}/>
+          <Route path='/shoppingCart' element={<ShoppingCart/>}/>
+          <Route path='/createProduct' element={<AddProduct/>}/>
+          <Route path='/updateProduct/:id' element={<UpdateProduct/>}/>
         </Routes>
       </Router>
     </div>
