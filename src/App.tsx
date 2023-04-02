@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import './App.css'
 import ProductList  from './components/ProductList';
 import Admin from './pages';
@@ -10,7 +10,7 @@ import UpdateProduct from './components/UpdateProduct';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter basename="online-shop-project">
+      <HashRouter basename="online-shop-project">
         <Routes>
           <Route path='/' element={<ProductList/>}/>
           <Route path='/admin' element={<Admin/>}/>
@@ -19,7 +19,7 @@ function App() {
           <Route path='/createProduct' element={<AddProduct/>}/>
           <Route path='/updateProduct/:id' element={<UpdateProduct/>}/>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
