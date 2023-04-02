@@ -10,7 +10,7 @@ import UpdateProduct from './components/UpdateProduct';
 function App() {
   return (
     <div className="App">
-      <HashRouter basename="online-shop-project">
+      <HashRouter>
         <Routes>
           <Route path='/' element={<ProductList/>}/>
           <Route path='/admin' element={<Admin/>}/>
