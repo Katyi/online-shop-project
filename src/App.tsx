@@ -10,7 +10,7 @@ import UpdateProduct from './components/UpdateProduct';
 function App() {
   return (
     <div className="App">
-      <Router basename="online-shop-project">
+      {/* <Router basename="online-shop-project"> */}
         <Routes>
           <Route path='/' element={<ProductList/>}/>
           <Route path='/admin' element={<Admin/>}/>
@@ -19,7 +19,7 @@ function App() {
           <Route path='/createProduct' element={<AddProduct/>}/>
           <Route path='/updateProduct/:id' element={<UpdateProduct/>}/>
         </Routes>
-      </Router>
+      {/* </Router> */}
     </div>
   );
 }
