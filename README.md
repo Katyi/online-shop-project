@@ -1,3 +1,3 @@
 online-shop-project using react and typescript
 
-Для входа в админку надо войти в /admin
+Для входа в админку: https://katyi.github.io/online-shop-project/#/admin 
