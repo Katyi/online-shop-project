@@ -10,14 +10,14 @@ import UpdateProduct from './components/UpdateProduct';
 function App() {
   return (
     <div className="App">
-      <Router>
+      <Router basename="online-shop-project">
         <Routes>
-          <Route path='/online-shop-project' element={<ProductList/>}/>
-          <Route path='/online-shop-project/admin' element={<Admin/>}/>
-          <Route path='/online-shop-project/productCard/:id' element={<ProductCard/>}/>
-          <Route path='/online-shop-project/shoppingCart' element={<ShoppingCart/>}/>
-          <Route path='/online-shop-project/createProduct' element={<AddProduct/>}/>
-          <Route path='/online-shop-project/updateProduct/:id' element={<UpdateProduct/>}/>
+          <Route path='/' element={<ProductList/>}/>
+          <Route path='/admin' element={<Admin/>}/>
+          <Route path='/productCard/:id' element={<ProductCard/>}/>
+          <Route path='/shoppingCart' element={<ShoppingCart/>}/>
+          <Route path='/createProduct' element={<AddProduct/>}/>
+          <Route path='/updateProduct/:id' element={<UpdateProduct/>}/>
         </Routes>
       </Router>
     </div>
