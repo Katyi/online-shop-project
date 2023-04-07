@@ -38,7 +38,9 @@ const products = [
 describe(ShoppingCart, ()=>{
   it('ShoppingCart displays correct total price', ()=>{
     const {getByTestId, getAllByTestId} = render(
-        <ShoppingCart products={products}/>
+        <HashRouter>
+          <ShoppingCart products={products}/>
+        </HashRouter>
     );
     const quantity = Number(getAllByTestId("quantity")[0].textContent);
     const price = Number(getAllByTestId("price")[0].textContent);

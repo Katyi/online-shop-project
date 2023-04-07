@@ -13,11 +13,16 @@ import {Wrapper,Container, Part1, Text1, Image1, Text2, Part2, Image2, CartItem,
 import {CartItemInfoPart1, Size, Image4, Image5, Image6, Image6_1, Image7, ButtonPart, Button, Image10, Image11, Price, ButtonDelete, Image8, Part3, 
   ButtonOrder, TotalPrice, Quantity, AfterOrderPart, Text5, Text6, Row1, NavigateButtonLine} from "./shoppingCart.style.js";
 import { Link } from 'react-router-dom';
-import { useState } from "react";
+import { FC, useState } from "react";
 import { IProduct as IProduct } from '../ProductList';
 import Footer from "../Footer";
 
-const ShoppingCart = () => {
+interface IProps {
+  products?: IProduct;
+}
+
+
+const ShoppingCart:FC<IProps> = ({products:testproducts}) => {
   let int  = localStorage.getItem("selectedProductsList") as string;
   let shoppingData:IProduct[] = JSON.parse(int);
   let shoppingData1:IProduct[] = [];
