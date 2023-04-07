@@ -92,7 +92,7 @@ const Navbar = (props: Props) => {
               </Cart1>
               <Cart2>
                 <Text5>Корзина</Text5>
-                <Text6>{props.totalPrice.toFixed(2)}</Text6>
+                <Text6 data-testid="totalPrice">{props.totalPrice.toFixed(2)}</Text6>
               </Cart2>
             </Cart>
           </HeaderMenu>

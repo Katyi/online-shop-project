@@ -100,7 +100,7 @@ const ShoppingCart = () => {
         <Text5>Спасибо за заказ!</Text5>
       </AfterOrderPart>
       }
-      {productList.map((item, index)=>(
+      {productList?.map((item, index)=>(
         <Part2 key={index}>
           <Image2 src={inputimg2}/>
           <CartItem>
@@ -120,11 +120,11 @@ const ShoppingCart = () => {
             <Row1>
               <ButtonPart>
                 <Button style={{background:"transparent"}} onClick={e=>decreaseQuantity(index)}><Image7 src={inputimg6}/></Button>
-                <Quantity>{item.quantity}</Quantity>
+                <Quantity data-testid="quantity">{item.quantity}</Quantity>
                 <Button style={{background:"transparent"}} onClick={e=>increaseQuantity(index)}><Image7 src={inputimg7}/></Button>
               </ButtonPart>
               <Image6_1 src={inputimg5}/>
-              <Price>{(item.price * item.quantity).toFixed(2)} ₸</Price>
+              <Price data-testid="price">{(item.price * item.quantity).toFixed(2)} ₸</Price>
               <Image6_1 src={inputimg5}/>
               <ButtonDelete onClick={e=>deleteShoppingCartList(index)}>
                 <Image8 src={inputimg8}/>
@@ -138,7 +138,7 @@ const ShoppingCart = () => {
         }
         <Part3>
           <ButtonOrder onClick={e=>orderProducts()}>Оформить заказ</ButtonOrder>
-          <TotalPrice>{totalPrice} ₸</TotalPrice>
+          <TotalPrice data-testid="totalPrice">{totalPrice} ₸</TotalPrice>
         </Part3>
       </Container>
       <Footer/>
