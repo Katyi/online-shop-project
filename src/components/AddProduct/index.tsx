@@ -53,13 +53,14 @@ const AddProduct = () => {
     let data:Data = JSON.parse(int);
 
     let maxID = Number.NEGATIVE_INFINITY;
-    data.products.forEach(( item) => maxID = Math.max(maxID, item.id) );
-    newProduct.id = ++maxID;
-
-    selectedOptions.map((item, index) => newProduct.caretype[index] = item.value);
-
-    data.products.push(newProduct);
-    localStorage.setItem('products',JSON.stringify({products:data.products}));
+    if (data) {
+      data.products.forEach(( item) => maxID = Math.max(maxID, item.id) );
+      newProduct.id = ++maxID;
+      selectedOptions.map((item, index) => newProduct.caretype[index] = item.value);
+      data.products.push(newProduct);
+      localStorage.setItem('products',JSON.stringify({products:data.products}));
+    }
+    
     navigate("/admin");
   };
 

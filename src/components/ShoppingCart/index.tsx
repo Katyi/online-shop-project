@@ -18,14 +18,13 @@ import { IProduct as IProduct } from '../ProductList';
 import Footer from "../Footer";
 
 interface IProps {
-  products?: IProduct;
+  products?: IProduct[];
 }
 
-
-const ShoppingCart:FC<IProps> = ({products:testproducts}) => {
+const ShoppingCart:FC<IProps> = ({products:testProducts}) => {
   let int  = localStorage.getItem("selectedProductsList") as string;
-  let shoppingData:IProduct[] = JSON.parse(int);
-  let shoppingData1:IProduct[] = [];
+  let shoppingData:IProduct[] = testProducts || JSON.parse(int);
+  let shoppingData1:IProduct[] =  [];
 
   // делаю массив объектов корзины уникальным и считаю кол-во каждого товара
   shoppingData.forEach((obj, index)=>{
@@ -118,21 +117,24 @@ const ShoppingCart:FC<IProps> = ({products:testproducts}) => {
                 {item.amount === 1 ? <Size>{item.size} {item.sizeType}</Size> : <Size>{item.amount}X{item.size} {item.sizeType}</Size>}
                 <Size>{item.size} {item.sizeType}</Size>
               </CartItemInfoPart1>
-              <Text3>{item.name}</Text3>
+              <Text3 data-testid="productName">{item.name}</Text3>
               <Text4>{item.description}</Text4>
             </CartItemInfo>
             <Image6 src={inputimg5}/>
             <Row1>
               <ButtonPart>
-                <Button style={{background:"transparent"}} onClick={e=>decreaseQuantity(index)}><Image7 src={inputimg6}/></Button>
+                <Button style={{background:"transparent"}} onClick={e=>decreaseQuantity(index)}>
+                  <Image7 src={inputimg6}/><span style={{color:"transparent"}}>-</span></Button>
                 <Quantity data-testid="quantity">{item.quantity}</Quantity>
-                <Button style={{background:"transparent"}} onClick={e=>increaseQuantity(index)}><Image7 src={inputimg7}/></Button>
+                <Button style={{background:"transparent"}} onClick={e=>increaseQuantity(index)}>
+                  <Image7  src={inputimg7}/><span style={{color:"transparent"}}>+</span></Button>
               </ButtonPart>
               <Image6_1 src={inputimg5}/>
               <Price data-testid="price">{(item.price * item.quantity).toFixed(2)} ₸</Price>
               <Image6_1 src={inputimg5}/>
               <ButtonDelete onClick={e=>deleteShoppingCartList(index)}>
                 <Image8 src={inputimg8}/>
+                <span style={{color:"transparent"}}>*</span>
               </ButtonDelete>
             </Row1>
          </CartItem>

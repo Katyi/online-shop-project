@@ -4,13 +4,17 @@ import { HashRouter } from "react-router-dom";
 
 
 describe(Navbar, ()=>{
-  it('Navbar displays correct total price', ()=>{
+  it('Navbar displays correct total price and quantity', ()=>{
     const {getByTestId} = render(
       <HashRouter>
         <Navbar selectedProductQuantity={2} totalPrice={40}/>
       </HashRouter>
     );
-    const countValue = Number(getByTestId("totalPrice").textContent);
-    expect(countValue).toEqual(40);
+    const totalPrice = Number(getByTestId("totalPrice").textContent);
+    const totalQuantity= Number(getByTestId("totalQuantity").textContent);
+    expect(totalPrice).toEqual(40);
+    expect(totalQuantity).toEqual(2);
   });
 });
+
+

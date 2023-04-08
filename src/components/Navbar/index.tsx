@@ -87,7 +87,7 @@ const Navbar = (props: Props) => {
                 <Link to="/shoppingCart" state =  {{selectedProductQuantity:props.selectedProductQuantity}}>
                   <Image13 src={inputimg10}/>
                   <Image14 src={inputimg11}/>
-                  <Text4>{props.selectedProductQuantity}</Text4>
+                  <Text4 data-testid="totalQuantity">{props.selectedProductQuantity}</Text4>
                 </Link>
               </Cart1>
               <Cart2>

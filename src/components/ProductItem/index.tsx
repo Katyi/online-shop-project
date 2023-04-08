@@ -4,7 +4,6 @@ import inputimg1 from '../../assets/productItem/vector5.png';
 import inputimg2 from '../../assets/productItem/vector6.png';
 import inputimg3 from '../../assets/productItem/vector7.png';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 
 interface Props { 
   product: IProduct;
@@ -23,7 +22,6 @@ const ProductItem = (props: Props) => {
       <Part1>
         {product.sizeType === 'мл' ? <Image2 src={inputimg1}/> : <Image3 src={inputimg2}/>}
         {product.amount === 1 ? <Size>{product.size} {product.sizeType}</Size>: <Size>{product.amount}X{product.size} {product.sizeType}</Size>}
-        
       </Part1>
       <BottomPart>
       {/* Название товара */}
@@ -36,8 +34,8 @@ const ProductItem = (props: Props) => {
       {/* Штрихкод, производитель, бренд */}
       <Part1_2>
       <Part2>
-        <Text2>Штрихкод: </Text2>
-        <Barcode>{product.barcode}</Barcode>
+        <Text2 >Штрихкод: </Text2>
+        <Barcode data-testid="barcode">{product.barcode}</Barcode>
       </Part2>
       <Part2>
         <Text2>Производитель: </Text2>

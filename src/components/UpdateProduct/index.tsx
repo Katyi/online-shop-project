@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { Product as Product} from "../ProductList";
 import {Wrapper,Container, Part1, Part2, Text1, Form, Input, Button, Row, SelecDiv} from "./updateProduct.style.js";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Select from "react-select";
+import { IProduct as IProduct } from '../ProductList';
 
 export interface Data {
   products:Product[]
@@ -12,6 +13,10 @@ export interface Selected {
   value: string;
   label: string;
 };
+
+// interface Props {
+//   products?: Product[];
+// }
 
 const UpdateProduct = () => {
   const careTypeArr = [
@@ -28,13 +33,13 @@ const UpdateProduct = () => {
     {value: "Бумажная продукция", label: "Бумажная продукция"}
   ];
 
+  let oldTypeArr:Selected[] = [];
+  const navigate = useNavigate();
   const location = useLocation();
   const { product } = location.state;
-  const navigate = useNavigate();
-  
-  let oldTypeArr:Selected[] = [];
   product.caretype.map((item:string)=>oldTypeArr.push({value: item, label: item}));
-  
+  console.log(product);
+
   const [selectedOptions, setSelectedOptions] = useState(oldTypeArr);
 
   const [updProduct, setUpdProduct] = useState<Product>({

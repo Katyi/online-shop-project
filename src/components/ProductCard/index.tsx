@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import Navbar from "../Navbar";
 import { IProduct as IProduct} from "../ProductList/index";
+import { Product as Product} from "../ProductList/index";
 import {Wrapper,Container, Part1, Image1, Part2, ImagePart, InfoPart, Image2, Text1, ProductName, ProductSize, Image3, Image4, 
   Size, PriceButtonPart, Price, ButtonPart, Button1, Image5, Quantity, Button2, Text2, Image6, SomeTextPart, ShareIcon, Image7, 
   Text3, Text4, ProductInfo, Text5, Button3, Button4, Text6, Image8, Image9, SpecificationInfo, NavigateButtonLine, Image10, 
@@ -17,14 +18,20 @@ import inputimg9 from '../../assets/productCard/icon13.png';
 import inputimg10 from '../../assets/productCard/vector14.png';
 import inputimg11 from '../../assets/productList/rectangle1.png';
 import inputimg12 from '../../assets/productList/vector15.png';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../Footer";
 
 export interface Data {
   products:IProduct[]
 };
 
+interface IProps {
+  product?: IProduct[];
+}
+
 const ProductCard = () => {
+  const navigate = useNavigate();
+
   // Берем данные корзины из json 
   let int  = localStorage.getItem("selectedProductsList") as string;
   let shoppingData:IProduct[] = JSON.parse(int);
@@ -49,8 +56,10 @@ const ProductCard = () => {
   // Все товары из json
   let int1  = localStorage.getItem("products") as string;
   let data:Data = JSON.parse(int1);
+  
+  
   const productId = Number(window.location.hash.split('/')[2]);
-  console.log(window.location.hash.split('/')[2])
+  // console.log(window.location.hash.split('/')[2])
   const [productItem, setProductItem] = useState(data.products.filter(item=>item.id === productId)[0]);
   
   // для расчета стоимости и количества в карточке
@@ -130,9 +139,11 @@ const ProductCard = () => {
             <PriceButtonPart>
               <Price>{productItem.price} ₸</Price>
               <ButtonPart>
-                <Button1 style={{background:"transparent"}} onClick={()=>decreaseQuantity()}><Image5 src={inputimg4}/></Button1>
+                <Button1 style={{background:"transparent"}} onClick={()=>decreaseQuantity()}><Image5 src={inputimg4} alt={"alt text"}/></Button1>
                 <Quantity>{quantity}</Quantity>
-                <Button1 style={{background:"transparent"}} onClick={e=>increaseQuantity()}><Image5 src={inputimg5}/></Button1>
+                <Button1 style={{background:"transparent"}} onClick={e=>increaseQuantity()}>
+                  <Image5 src={inputimg5}/>
+                </Button1>
               </ButtonPart>
               <Button2 onClick={()=>{handleShoppingCart()}}>
                 <Text2>В КОРЗИНУ</Text2>
